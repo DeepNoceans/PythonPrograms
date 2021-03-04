@@ -1,0 +1,81 @@
+Minecraft Nomenclature Quiz
+Q1|10pts|Easy: The good 'ol one two.
+What is the first weapon you get when entering a new world?
+Wooden sword
+Stone sword
+Bow and arrow
+Fists
+4
+Every player will spawn in with the good 'ol one two.
+Q2|10pts|Easy: I'm Hungry.
+Which food item provides the most food points?
+Pumpkin Pie
+Rabbit stew
+Cake
+Suspicious stew
+3
+Cakes fills up 7 bars, making it the fattest food. Suspicious stew comes close with 6.5 bars.
+Q3|10pts|Easy: *Default Dance Intensifies*
+What is the name of the default minecraft character (female):
+Steve
+Alex
+Ava
+Emma
+2
+Her name is Alex.
+Q4|10pts|Easy: It is creepy down here.
+Which one of these are not found in strongholds?
+Blaze spawners
+Lava
+End Portal
+Iron bars
+1
+Blaze spawners are not found in strongholds. They're only in the Nether.
+Q5|15pts|Medium: You Spin me Right Round
+Which mob does not spawn naturally in a spawner?
+Magma cube
+Cave spider
+Wither skeleton
+Silverfish
+3
+Wither skeleton spawners do not spawn naturally. Magma Cube spawners are  found in bastions, Cave spider spawners are found in mineshafts, and silverfish in strongholds.
+Q6|15pts|Medium: Stal is the Best Disc.
+How would you obtain a Stal disc in minecraft?
+Get a skeleton to shoot a Creeper
+Trade with a librarian villager
+Trade with a cleric villager
+Find it in a dungeon 
+1
+The only way to get a Stal disc is by having a creeper die to a skeleton.
+Q7|15pts|Medium: MLG
+Which item can't be used to prevent fall damage from a height of 1000 blocks?
+Water bucket
+Boat
+Ladder
+Hay bale
+4
+A hay bale only reduces fall damage, It does not eliminate damage unlike the other items.
+Q8|20pts|Hard: That did not hurt.
+Which one of these tools does the most damage?
+Wooden sword
+Stone sword
+Gold sword
+Iron Pickaxe
+2
+The stone sword deals 2 and a half hearts, while the rest only deal 2 hearts(Java edition).
+Q9|20pts|Hard: Lol Rekt.
+What do you have to do to get a death message in the chat announcing you were "stabbed to death"?
+Killed by pigman
+Killed by cactus
+Killed by wither rose
+Killed by wither skeleton
+2
+Being pricked to death by a cactus in minecraft will provide this unfortunate message.
+Q10|20pts|Hard: Professionals make content out of mistakes.
+Which mob was invented by a coding error?
+Creeper
+Pigman
+Mooshroom
+Enderman
+1
+Jeb invented a Creeper after messing up the dimensions of a pig while coding. After accidentally swapping the height and length of a pig, he formed an odd looking creature that soon became the infamous Creeper.
