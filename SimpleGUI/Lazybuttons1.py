@@ -9,7 +9,7 @@ root.title("Lazy buttons")
 root.geometry("200x100")
 
 #create a fram in the window to hold other widgets
-app = Frame (root)
+app = Frame(root)
 app.grid()
 
 # create a button in the frame
