@@ -102,8 +102,8 @@ class Application(Frame):
                command=self.tell_story
                ).grid(row=6, column=0, sticky=W)
 
-        self.story_txt = Text(self, width=75, height=10, wrap=WORD)
-        self.story_txt.grid(row=7, column=0, columnspan=4)
+        self.story_txt = Text(self, width=100, height=7, wrap=WORD)
+        self.story_txt.grid(row=7, column=0, columnspan=5)
 
     def tell_story(self):
         """ Fill text box with new story based on user input. """
@@ -134,16 +134,16 @@ class Application(Frame):
         story += "A surprised, "
         story += adjectives
         story += "yet worried feeling overwhelmed the brave knight. "
-        story += "After all this time, he had found the king's enemies."
+        story += "After all this time, they had found the king's biggest enemies. "
         story += person + "'s "
-        story += weapon + " gleamed in the sun as he approached the " + noun
+        story += weapon + " gleamed in the sun as they approached the " + noun
         story += "And then, the "
         story += noun
         story += " were eradicated by "
         story += person + " in honor of the king. "
         story += "The moral of the story? Be careful when you "
         story += verb
-        story += " with the king, for you may get on his bad side. Long live the king!"
+        story += " with the king, for you may get on his bad side.\nLong live the king!"
 
         # display the story
         self.story_txt.delete(0.0, END)
@@ -153,5 +153,6 @@ class Application(Frame):
 # main
 root = Tk()
 root.title("Mad Lib 2")
+
 app = Application(root)
 root.mainloop()
