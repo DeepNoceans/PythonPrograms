@@ -4,7 +4,6 @@ import random
 
 rand_num = random.randint(1, 999)
 
-
 class Application(Frame):
 
     def __init__(self, master):
@@ -12,10 +11,12 @@ class Application(Frame):
         super(Application, self).__init__(master)
         self.grid()
         self.create_widgets()
+        # self.num_attempts = 0
 
     def create_widgets(self):
         Label(self,
-              text="Welcome to the Guess My Number Game"
+              text="Welcome to the Guess My Number Game",
+              font=("Times New Roman", 12)
         ).grid(row = 0)
 
         Label(self,
@@ -28,20 +29,34 @@ class Application(Frame):
                text="Check your guess",
                command=self.result
                ).grid(row=4, column=0)
-        self.result_txt = Text(self, width=15, height=2, wrap=WORD)
+        self.result_txt = Text(self, width=15, height=3, wrap=WORD)
         self.result_txt.grid(row=5, column=0)
 
     def result(self):
         g_num = self.guessed_num.get()
 
-        if int(g_num) == rand_num:
-            result = "Correct."
+        # if self.num_attempts != 0:
+        #     self.num_attempts = 0
+
+        if g_num.isdigit():
+
+            # self.num_attempts += 1
+
+            if int(g_num) == rand_num:
+                result = "Correct."
+                # result += " It took you " + str(self.num_attempts) + " attempts."
+            else:
+                result = "Incorrect."
+                if int(g_num) > rand_num:
+                    result += " Guess smaller."
+                    # result += " Attempt: " + str(self.num_attempts)
+
+                elif int(g_num) < rand_num:
+                    result += " Guess larger."
+                    # result += " Attempt: " + str(self.num_attempts)
         else:
-            result = "Incorrect."
-            if int(g_num) > rand_num:
-                result += " Guess smaller."
-            elif int(g_num) < rand_num:
-                result += " Guess larger."
+            result = "Not digit."
+
         self.result_txt.delete(0.0, END)
         self.result_txt.insert(0.0, result)
 
@@ -49,7 +64,7 @@ class Application(Frame):
             
 # main
 root = Tk()
-root.title("Mad Lib")
+root.title("GuessMyNumberGame")
 
 app = Application(root)
 
