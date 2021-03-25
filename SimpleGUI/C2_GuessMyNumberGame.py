@@ -17,20 +17,29 @@ class Application(Frame):
         Label(self,
               text="Welcome to the Guess My Number Game",
               font=("Times New Roman", 12)
-        ).grid(row = 0)
+              ).grid(row = 0)
 
         Label(self,
               text="\nGuess from 1-1000:"
-                            ).grid(row=1, column=0)
+              ).grid(row=1, column=0)
         self.guessed_num = Entry(self)
         self.guessed_num.grid(row=2, column=0)
 
         Button(self,
                text="Check your guess",
-               command=self.result
+               command=self.result,
+               bg="black",
+               fg="white"
                ).grid(row=4, column=0)
-        self.result_txt = Text(self, width=15, height=3, wrap=WORD)
-        self.result_txt.grid(row=5, column=0)
+
+
+    
+        Button(self,
+              text="Take a guess...",
+              font=("Arial", 10),
+              bg="White",
+              command=self.result
+              ).grid(row=5,column=0)
 
     def result(self):
         g_num = self.guessed_num.get()
@@ -43,22 +52,23 @@ class Application(Frame):
             # self.num_attempts += 1
 
             if int(g_num) == rand_num:
-                result = "Correct."
+                self.result["text"] = "Correct."
                 # result += " It took you " + str(self.num_attempts) + " attempts."
+                self.result["bg"] = "#7CFF48"
             else:
-                result = "Incorrect."
+                self.result["bg"] = "#FF4848"
+# look up color toggling!!!!!
                 if int(g_num) > rand_num:
-                    result += " Guess smaller."
+                    self.result["text"] = "Guess smaller."
                     # result += " Attempt: " + str(self.num_attempts)
 
                 elif int(g_num) < rand_num:
-                    result += " Guess larger."
+                    self.result["text"] = "Guess larger."
                     # result += " Attempt: " + str(self.num_attempts)
         else:
-            result = "Not digit."
+            self.result["text"] = "Not digit."
+            self.result["bg"] = "White"
 
-        self.result_txt.delete(0.0, END)
-        self.result_txt.insert(0.0, result)
 
 
             
