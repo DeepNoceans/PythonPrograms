@@ -11,7 +11,6 @@ class Application(Frame):
         super(Application, self).__init__(master)
         self.grid()
         self.create_widgets()
-        self["bg"] = 
         # self.num_attempts = 0
 
     def create_widgets(self):
@@ -28,42 +27,44 @@ class Application(Frame):
 
         Button(self,
                text="Check your guess",
-               command=self.result,
                bg="black",
                fg="white"
                ).grid(row=4, column=0)
 
 
-        Label(self,
+        self.is_correct= Label(self,
               text="Take a guess...",
               font=("Arial", 10),
-              variable=result
               ).grid(row=5,column=0)
 
     def result(self):
-        g_num = self.guessed_num.get()
+        guessed_num = self.guessed_num.get()
 
         # if self.num_attempts != 0:
         #     self.num_attempts = 0
 
-        if g_num.isdigit():
+        if self.guessed_num.isdigit():
 
             # self.num_attempts += 1
 
-            if int(g_num) == rand_num:
+            if int(self.guessed_num) == rand_num:
                 self.result["text"] = "Correct."
                 # result += " It took you " + str(self.num_attempts) + " attempts."
                 self.result["bg"] = "#7CFF48"
             else:
                 self.result["bg"] = "#FF4848"
 
-                if int(g_num) > rand_num:
+                if int(self.guessed_num) > rand_num:
                     self.result["text"] = "Guess smaller."
                     # result += " Attempt: " + str(self.num_attempts)
 
-                elif int(g_num) < rand_num:
+                elif int(self.guessed_num) < rand_num:
                     self.result["text"] = "Guess larger."
                     # result += " Attempt: " + str(self.num_attempts)
+                    print(1)
+
+
+                    self.is_correct[bg]="red"
         else:
             result = "Not digit."
 
