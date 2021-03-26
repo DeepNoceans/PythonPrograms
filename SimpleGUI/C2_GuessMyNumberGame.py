@@ -34,7 +34,7 @@ class Application(Frame):
 
 
     
-        Button(self,
+        Label(self,
               text="Take a guess...",
               font=("Arial", 10),
               bg="White",
