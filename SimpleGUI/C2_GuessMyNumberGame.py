@@ -11,6 +11,7 @@ class Application(Frame):
         super(Application, self).__init__(master)
         self.grid()
         self.create_widgets()
+        self["bg"] = 
         # self.num_attempts = 0
 
     def create_widgets(self):
@@ -33,12 +34,10 @@ class Application(Frame):
                ).grid(row=4, column=0)
 
 
-    
         Label(self,
               text="Take a guess...",
               font=("Arial", 10),
-              bg="White",
-              command=self.result
+              variable=result
               ).grid(row=5,column=0)
 
     def result(self):
@@ -57,7 +56,7 @@ class Application(Frame):
                 self.result["bg"] = "#7CFF48"
             else:
                 self.result["bg"] = "#FF4848"
-# look up color toggling!!!!!
+
                 if int(g_num) > rand_num:
                     self.result["text"] = "Guess smaller."
                     # result += " Attempt: " + str(self.num_attempts)
@@ -66,9 +65,10 @@ class Application(Frame):
                     self.result["text"] = "Guess larger."
                     # result += " Attempt: " + str(self.num_attempts)
         else:
-            self.result["text"] = "Not digit."
-            self.result["bg"] = "White"
+            result = "Not digit."
 
+        self.result_txt.delete(0.0, END)
+        self.result_txt.insert(0.0, result)
 
 
             
