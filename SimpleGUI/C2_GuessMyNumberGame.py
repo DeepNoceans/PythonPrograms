@@ -17,43 +17,54 @@ class Application(Frame):
         Label(self,
               text="Welcome to the Guess My Number Game",
               font=("Times New Roman", 12)
-        ).grid(row = 0)
+              ).grid(row = 0)
 
         Label(self,
               text="\nGuess from 1-1000:"
-                            ).grid(row=1, column=0)
+              ).grid(row=1, column=0)
         self.guessed_num = Entry(self)
         self.guessed_num.grid(row=2, column=0)
 
         Button(self,
                text="Check your guess",
-               command=self.result
+               bg="black",
+               fg="white"
                ).grid(row=4, column=0)
-        self.result_txt = Text(self, width=15, height=3, wrap=WORD)
-        self.result_txt.grid(row=5, column=0)
+
+
+        self.is_correct= Label(self,
+              text="Take a guess...",
+              font=("Arial", 10),
+              ).grid(row=5,column=0)
 
     def result(self):
-        g_num = self.guessed_num.get()
+        guessed_num = self.guessed_num.get()
 
         # if self.num_attempts != 0:
         #     self.num_attempts = 0
 
-        if g_num.isdigit():
+        if self.guessed_num.isdigit():
 
             # self.num_attempts += 1
 
-            if int(g_num) == rand_num:
-                result = "Correct."
+            if int(self.guessed_num) == rand_num:
+                self.result["text"] = "Correct."
                 # result += " It took you " + str(self.num_attempts) + " attempts."
+                self.result["bg"] = "#7CFF48"
             else:
-                result = "Incorrect."
-                if int(g_num) > rand_num:
-                    result += " Guess smaller."
+                self.result["bg"] = "#FF4848"
+
+                if int(self.guessed_num) > rand_num:
+                    self.result["text"] = "Guess smaller."
                     # result += " Attempt: " + str(self.num_attempts)
 
-                elif int(g_num) < rand_num:
-                    result += " Guess larger."
+                elif int(self.guessed_num) < rand_num:
+                    self.result["text"] = "Guess larger."
                     # result += " Attempt: " + str(self.num_attempts)
+                    print(1)
+
+
+                    self.is_correct[bg]="red"
         else:
             result = "Not digit."
 

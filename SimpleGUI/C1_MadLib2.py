@@ -20,19 +20,20 @@ class Application(Frame):
         """ Create widgets to get story information and to display story. """
         # create instruction label
         Label(self,
-              text="Enter information for a new story"
+              text="A Brave Knight for a Selfish King",
+              font=("Times New Roman", 20)
               ).grid(row=0, column=0, columnspan=2, sticky=W)
 
         # create a label and text entry for the name of a person
         Label(self,
-              text="Person: "
+              text="Knight's Name: "
               ).grid(row=1, column=0, sticky=W)
         self.person_ent = Entry(self)
         self.person_ent.grid(row=1, column=1, sticky=W)
 
         # create a label and text entry for a plural noun
         Label(self,
-              text="Plural Noun (animate): "
+              text="An evil animal: "
               ).grid(row=2, column=0, sticky=W)
         self.noun_ent = Entry(self)
         self.noun_ent.grid(row=2, column=1, sticky=W)
@@ -60,26 +61,26 @@ class Application(Frame):
         Checkbutton(self,
                     text="chivalrous",
                     variable=self.is_chivalrous
-                    ).grid(row=4, column=2, sticky=W)
+                    ).grid(row=5, column=1, sticky=W)
 
         # create superior check button
         self.is_superior = BooleanVar()
         Checkbutton(self,
                     text="superior",
                     variable=self.is_superior
-                    ).grid(row=4, column=3, sticky=W)
+                    ).grid(row=6, column=1, sticky=W)
 
         # create confident check button
         self.is_confident = BooleanVar()
         Checkbutton(self,
                     text="confident",
                     variable=self.is_confident
-                    ).grid(row=4, column=4, sticky=W)
+                    ).grid(row=7, column=1, sticky=W)
 
         # create a label for body parts radio buttons
         Label(self,
               text="Weapon:"
-              ).grid(row=5, column=0, sticky=W)
+              ).grid(row=4, column=1, sticky=W)
 
         # create variable for single, body part
         self.weapon = StringVar()
@@ -87,14 +88,14 @@ class Application(Frame):
 
         # create body part radio buttons
         weapons = ["sword", "spear", "chainsaw"]
-        column = 1
+        row = 2
         for part in weapons:
             Radiobutton(self,
                         text=part,
                         variable=self.weapon,
                         value=part
-                        ).grid(row=5, column=column, sticky=W)
-            column += 1
+                        ).grid(row=row, column=1, sticky=W)
+            row += 1
 
         # create a submit button
         Button(self,
