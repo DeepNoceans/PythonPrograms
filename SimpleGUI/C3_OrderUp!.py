@@ -48,20 +48,7 @@ class Application(Frame):
               font=("Times New Roman", 15)
               ).grid(row=8, column=0, sticky=W)
 
-        # self.meat = DoubleVar()
-        # self.meat.set(None)
-
-        # meats = ["Chicken ($7.35)", "Steak ($8.35)", "Veggie ($7.35)"]
-        # # values = [7.35, 8.35, 7.35]
-        # row = 9
-        # for meat in meats:
-        #     # for value in values:
-        #         Radiobutton(self,
-        #                     text=meat,
-        #                     variable=self.meat,
-        #                     value=meat
-        #                     ).grid(row=row, column=0, sticky=W)
-        #         row += 1
+       
 
         self.chicken = DoubleVar()
         self.chicken.set(0)
@@ -235,3 +222,6 @@ root = Tk()
 root.title("Order Up!")
 app = Application(root)
 root.mainloop()
+
+
+#tip!!!!!!!!!!!!!!!!

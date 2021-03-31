@@ -2,7 +2,7 @@ from tkinter import *
 
 import random
 
-rand_num = random.randint(1, 999)
+rand_num = random.randint(1, 99)
 
 class Application(Frame):
 
@@ -16,11 +16,12 @@ class Application(Frame):
     def create_widgets(self):
         Label(self,
               text="Welcome to the Guess My Number Game",
-              font=("Times New Roman", 12,"bold")
+              font=("Times New Roman", 12,"bold","underline")
               ).grid(row = 0)
 
         Label(self,
-              text="\nGuess from 1-1000:"
+              text="\nGuess from 1-1000:",
+
               ).grid(row=1, column=0)
         self.guessed_num = Entry(self)
         self.guessed_num.grid(row=2, column=0)
@@ -37,7 +38,8 @@ class Application(Frame):
               text="Take a guess...",
               font=("Arial", 10,),
               bg="#ffffff"
-              ).grid(row=5,column=0)
+              )
+        self.is_correct.grid(row=5,column=0)
 
     def result(self):
         guessed_num = self.guessed_num.get()
@@ -53,28 +55,28 @@ class Application(Frame):
             print(int_guessed)
 
             if int_guessed == rand_num:
-                self.is_correct.config(text = "Correct.")
+                self.is_correct["text"] = "Correct."
                 # result += " It took you " + str(self.num_attempts) + " attempts."
-                self.is_correct.config(bg = "#7cff48")
+                self.is_correct["bg"] = "#7cff48"
 
             else:
-                self.is_correct.configure(bg = "#ff4848")
+                self.is_correct["bg"] = "#ffcccb"
+
+                # self.is_correct.configure(bg = "#ff4848")
 
             if int_guessed > rand_num:
                 self.is_correct["text"] = "Guess smaller."
                 # result += " Attempt: " + str(self.num_attempts)
-                self.is_correct.config(text="Guess smaller.")
 
             elif int_guessed < rand_num:
-                self.is_correct.config(text="Guess larger.")
+                self.is_correct["text"] = "Guess larger."
                 # result += " Attempt: " + str(self.num_attempts)
-                print(1)
                 #self.is_correct.config(text="Guess larger.")
 
 
 
         else:
-            result = "Not digit."
+            self.is_correct["text"] = "Not digit."
 
 
 
@@ -87,3 +89,6 @@ app = Application(root)
 
 
 root.mainloop()
+
+
+#bold text and button

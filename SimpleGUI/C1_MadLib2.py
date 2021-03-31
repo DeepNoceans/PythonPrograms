@@ -177,7 +177,7 @@ class Application(Frame):
         story += "After all this time, they had found the king's biggest enemies. "
         story += person + "'s "
         story += weapon + " gleamed in the sun as they approached the " + noun
-        story += "And then, the "
+        story += ". And then, the "
         story += noun
         story += " were eradicated by "
         story += person + " in honor of the king. "
