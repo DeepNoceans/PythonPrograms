@@ -15,72 +15,104 @@ class Application(Frame):
         super(Application, self).__init__(master)
         self.grid()
         self.create_widgets()
+        
+        self.config(bg="#f2eecb")
+
 
     def create_widgets(self):
         """ Create widgets to get story information and to display story. """
         # create instruction label
         Label(self,
               text="A Brave Knight for a Selfish King",
-              font=("Times New Roman", 20)
-              ).grid(row=0, column=0, columnspan=2, sticky=W)
+              font=("Segoe Script", 15),
+              bg="#f2eecb"
+              ).grid(row=0, column=0, columnspan=5, sticky=W)
+
 
         # create a label and text entry for the name of a person
         Label(self,
-              text="Knight's Name: "
+              text="Knight's Name: ",
+              font=("Times New Roman", 10, "bold"),
+
+              bg="#f2eecb"
               ).grid(row=1, column=0, sticky=W)
         self.person_ent = Entry(self)
         self.person_ent.grid(row=1, column=1, sticky=W)
 
         # create a label and text entry for a plural noun
         Label(self,
-              text="An evil animal: "
+              text="An evil animal: ",
+              font=("Times New Roman", 10, "bold"),
+
+              bg="#f2eecb"
               ).grid(row=2, column=0, sticky=W)
         self.noun_ent = Entry(self)
         self.noun_ent.grid(row=2, column=1, sticky=W)
 
         # create a label and text entry for a verb
         Label(self,
-              text="Action Verb: "
+              text="Action Verb: ",
+              font=("Times New Roman", 10, "bold"),
+
+              bg="#f2eecb"
               ).grid(row=3, column=0, sticky=W)
         self.verb_ent = Entry(self)
         self.verb_ent.grid(row=3, column=1, sticky=W)
 
         # create a label for adjectives check buttons
         Label(self,
-              text="Adjective(s):"
+              text="Adjective(s):",
+              font=("Times New Roman", 10, "bold"),
+
+              bg="#f2eecb"
               ).grid(row=4, column=0, sticky=W)
 
         # create strong check button
         self.is_strong = BooleanVar()
         Checkbutton(self,
                     text="strong",
-                    variable=self.is_strong
+                    font=("Times New Roman", 10, "bold"),
+
+                    variable=self.is_strong,
+                    bg="#f2eecb"
                     ).grid(row=4, column=1, sticky=W)
 
         self.is_chivalrous = BooleanVar()
         Checkbutton(self,
                     text="chivalrous",
-                    variable=self.is_chivalrous
+                    font=("Times New Roman", 10, "bold"),
+
+                    variable=self.is_chivalrous,
+                    bg="#f2eecb"
                     ).grid(row=5, column=1, sticky=W)
 
         # create superior check button
         self.is_superior = BooleanVar()
         Checkbutton(self,
                     text="superior",
-                    variable=self.is_superior
+                    font=("Times New Roman", 10, "bold"),
+
+                    variable=self.is_superior,
+                    bg="#f2eecb"
                     ).grid(row=6, column=1, sticky=W)
 
         # create confident check button
         self.is_confident = BooleanVar()
         Checkbutton(self,
                     text="confident",
-                    variable=self.is_confident
+                    font=("Times New Roman", 10, "bold"),
+
+                    variable=self.is_confident,
+                    bg="#f2eecb"
                     ).grid(row=7, column=1, sticky=W)
 
         # create a label for body parts radio buttons
         Label(self,
-              text="Weapon:"
-              ).grid(row=4, column=1, sticky=W)
+              text="Weapon:",
+              font=("Times New Roman", 10, "bold"),
+
+              bg="#f2eecb"
+              ).grid(row=9, column=0, sticky=W)
 
         # create variable for single, body part
         self.weapon = StringVar()
@@ -88,23 +120,30 @@ class Application(Frame):
 
         # create body part radio buttons
         weapons = ["sword", "spear", "chainsaw"]
-        row = 2
+        row = 9
         for part in weapons:
             Radiobutton(self,
                         text=part,
+                        font=("Times New Roman", 10, "bold"),
+
                         variable=self.weapon,
-                        value=part
+                        value=part,
+                        bg="#f2eecb"
                         ).grid(row=row, column=1, sticky=W)
             row += 1
 
         # create a submit button
         Button(self,
                text="Click for story",
-               command=self.tell_story
-               ).grid(row=6, column=0, sticky=W)
+               font=("Times New Roman", 10, "bold"),
+               command=self.tell_story,
+               bg="#cfb53b"
+               ).grid(row=11, column=0, sticky=S)
 
-        self.story_txt = Text(self, width=100, height=7, wrap=WORD)
-        self.story_txt.grid(row=7, column=0, columnspan=5)
+        self.story_txt = Text(self, width=20, height=37, wrap=WORD)
+        self.story_txt.grid(row=1,column=4,rowspan=11)
+
+   
 
     def tell_story(self):
         """ Fill text box with new story based on user input. """
