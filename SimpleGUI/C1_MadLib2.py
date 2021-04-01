@@ -17,6 +17,7 @@ class Application(Frame):
         self.create_widgets()
         
         self.config(bg="#f2eecb")
+        self["bg"] = "#f2eecb"
 
 
     def create_widgets(self):
