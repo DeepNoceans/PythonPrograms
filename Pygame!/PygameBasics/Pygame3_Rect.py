@@ -9,17 +9,17 @@ screen = pygame.display.set_mode((600,500))
 
 pygame.display.set_caption("Drawing Rectangles")
 
-pos_x = 200
-pos_y = 250
-vel_x = 2
-vel_y = 2
+pos_x = 5
+pos_y = 5
+vel_x = .05
+vel_y = .05
 
 while True: 
     for event in pygame.event.get(): 
         if event.type in (QUIT, KEYDOWN): 
             sys.exit()
 
-    #MOVE THE RECTANGLE
+    # MOVE THE RECTANGLE
     pos_x += vel_x
     pos_y += vel_y
 

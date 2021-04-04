@@ -27,7 +27,7 @@ while True:
         
         end_position = random.randint(0, 1000), random.randint(0, 1000)
 
-        width = 4
+        width = 1
         pygame.draw.line(screen, color, start_position, end_position, width)
 
     pygame.display.update()

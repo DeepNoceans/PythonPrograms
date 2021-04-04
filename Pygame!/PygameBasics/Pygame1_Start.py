@@ -19,9 +19,9 @@ myfont = pygame.font.Font(None,60)
 
 textImage = myfont.render("Hello Pygame", True, white) 
 
-screen.fill(blue) 
-screen.blit(textImage, (100,100)) 
-pygame.display.update()
+# screen.fill(blue) 
+# screen.blit(textImage, (100,100)) 
+# pygame.display.update()
 
 while True: 
     for event in pygame.event.get(): 
@@ -29,6 +29,6 @@ while True:
             sys.exit()
 
 
-    # screen.fill(blue) 
-    # screen.blit(textImage, (100,100)) 
-    # pygame.display.update()
+    screen.fill(blue) 
+    screen.blit(textImage, (100,100)) 
+    pygame.display.update()
