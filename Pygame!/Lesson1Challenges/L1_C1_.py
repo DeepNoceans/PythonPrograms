@@ -16,12 +16,17 @@ while True:
 
     screen.fill((20,20,20))
 
+
+
+
     E1color = (255, 140, 0)
 
     E1rect = (320, 350, 50, 300)
 
 
     pygame.draw.ellipse(screen, E1color, E1rect, width=0)
+
+
 
     E2color = (30, 144, 255)
 
