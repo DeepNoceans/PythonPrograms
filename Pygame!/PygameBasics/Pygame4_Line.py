@@ -20,12 +20,12 @@ while True:
             sys.exit()
 
 
-screen.fill((0,80,0))
+    screen.fill((0,80,0))
 
-color = 100,255,200
+    color = 100,255,200
 
-width = 8
+    width = 8
 
-pygame.draw.line(screen, color, (100,100), (500,400), width)
+    pygame.draw.line(screen, color, (100,100), (500,400), width)
 
-pygame.display.update()
+    pygame.display.update()

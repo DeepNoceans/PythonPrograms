@@ -14,8 +14,8 @@ while True:
     #draw the arc
     color = 255,0,255
     position = 200,150,200,200
-    start_angle = math.radians(0)
-    end_angle = math.radians(0)
+    start_angle = math.radians(120)
+    end_angle = math.radians(40)
     width = 8
     pygame.draw.arc(screen, color, position, start_angle, end_angle, width)
 

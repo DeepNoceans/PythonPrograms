@@ -19,6 +19,7 @@ while True:
 
     for i in range(0, 1000):
 
+        # screen.fill((100, 120, 150))
 
 
         color = random.randint(0, 255), random.randint(0, 255), random.randint(0, 255),
