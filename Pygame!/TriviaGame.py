@@ -45,14 +45,18 @@ class Trivia(object):
             self.colors = [white, white, white, white]
             self.colors[self.correct-1] = green
             print_text(font1, 230, 380, "CORRECT!", green)
-            print_text(font2, 170, 420, "Press Enter For Next Question", green)
+            if counter != 10:
+                print_text(font2, 170, 420, "Press Enter For Next Question", green)
         elif self.failed:
             self.colors = [white, white, white, white]
             self.colors[self.wronganswer-1] = red
             self.colors[self.correct-1] = green
             print_text(font1, 220, 380, "INCORRECT!", red)
-            print_text(font2, 170, 420, "Press Enter For Next Question", red)
-
+            if counter != 10:
+                print_text(font2, 170, 420, "Press Enter For Next Question", red)
+        if counter == 10:
+            print_text(font2, 170, 420, "Press Enter to restart game!", yellow)
+            print_text(font2, 170, 390, "Press Esc to exit the program!", yellow)
         #display answers
         print_text(font1, 5, 170, "ANSWERS")
         print_text(font2, 20, 210, "1 - " +
@@ -108,6 +112,7 @@ red = 255, 0, 0
 #load the trivia data file
 trivia = Trivia("Trivia_Data.txt")
 
+counter = 0
 #repeating loop
 while True:
     for event in pygame.event.get():
@@ -128,7 +133,8 @@ while True:
 
 
                 trivia.next_question()
-
+                counter += 1
+      
     #clear the screen
     screen.fill((0, 0, 200))
 
