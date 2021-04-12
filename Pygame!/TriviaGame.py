@@ -5,6 +5,8 @@ from pygame.locals import *
 
 
 class Trivia(object):
+
+
     def __init__(self, filename):
         self.data = []
         self.current = 0
@@ -15,6 +17,7 @@ class Trivia(object):
         self.failed = False
         self.wronganswer = 0
         self.colors = [white, white, white, white]
+        self.counter = 0
 
         #read trivia data from file
         f = open(filename, "r")
@@ -32,40 +35,48 @@ class Trivia(object):
         print_text(font2, 530, 5, "SCORE", purple)
         print_text(font2, 550, 25, str(self.score), purple)
 
-        #get correct answer out of data (first)
-        self.correct = int(self.data[self.current+5])
 
-        #display question
-        question = self.current // 6 + 1
-        print_text(font1, 5, 80, "QUESTION " + str(question))
-        print_text(font2, 20, 120, self.data[self.current], yellow)
+        if self.counter != 10:
+            
 
-        #respond to correct answer
-        if self.scored:
-            self.colors = [white, white, white, white]
-            self.colors[self.correct-1] = green
-            print_text(font1, 230, 380, "CORRECT!", green)
-            if counter != 10:
+            #get correct answer out of data (first)
+            self.correct = int(self.data[self.current+5])
+
+            #display question
+            question = self.current // 6 + 1
+            print_text(font1, 5, 80, "QUESTION " + str(question))
+            print_text(font2, 20, 120, self.data[self.current], yellow)
+
+            #respond to correct answer
+            if self.scored:
+                self.colors = [white, white, white, white]
+                self.colors[self.correct-1] = green
+                print_text(font1, 230, 380, "CORRECT!", green)
+                
                 print_text(font2, 170, 420, "Press Enter For Next Question", green)
-        elif self.failed:
-            self.colors = [white, white, white, white]
-            self.colors[self.wronganswer-1] = red
-            self.colors[self.correct-1] = green
-            print_text(font1, 220, 380, "INCORRECT!", red)
-            if counter != 10:
+            elif self.failed:
+                self.colors = [white, white, white, white]
+                self.colors[self.wronganswer-1] = red
+                self.colors[self.correct-1] = green
+                print_text(font1, 220, 380, "INCORRECT!", red)
+            
                 print_text(font2, 170, 420, "Press Enter For Next Question", red)
-        if counter == 10:
-            print_text(font2, 170, 420, "Press Enter to restart game!", yellow)
-            print_text(font2, 170, 390, "Press Esc to exit the program!", yellow)
+        elif self.counter == 10:
+
+            print_text(font2, 170, 420, "Press Space to restart", yellow)
+            print_text(font2, 170, 420, "Press Escape (Esc) to quit", yellow)
+            self.counter = 0
+
+
         #display answers
         print_text(font1, 5, 170, "ANSWERS")
-        print_text(font2, 20, 210, "1 - " +
+        print_text(font2, 20, 210, "1 -     " +
                    self.data[self.current+1], self.colors[0])
-        print_text(font2, 20, 240, "2 - " +
+        print_text(font2, 20, 240, "2 -     " +
                    self.data[self.current+2], self.colors[1])
-        print_text(font2, 20, 270, "3 - " +
+        print_text(font2, 20, 270, "3 -     " +
                    self.data[self.current+3], self.colors[2])
-        print_text(font2, 20, 300, "4 - " +
+        print_text(font2, 20, 300, "4 -     " +
                    self.data[self.current+4], self.colors[3])
 
     def handle_input(self, number):
@@ -78,6 +89,7 @@ class Trivia(object):
                 self.wronganswer = number
 
     def next_question(self):
+
         if self.scored or self.failed:
             self.scored = False
             self.failed = False
@@ -86,6 +98,7 @@ class Trivia(object):
             self.current += 6
             if self.current >= self.total:
                 self.current = 0
+       
 
 
 def print_text(font, x, y, text, color=(255, 255, 255), shadow=True):
@@ -112,7 +125,6 @@ red = 255, 0, 0
 #load the trivia data file
 trivia = Trivia("Trivia_Data.txt")
 
-counter = 0
 #repeating loop
 while True:
     for event in pygame.event.get():
@@ -133,13 +145,14 @@ while True:
 
 
                 trivia.next_question()
-                counter += 1
       
     #clear the screen
     screen.fill((0, 0, 200))
 
     #display trivia data
+  
+    
     trivia.show_question()
-
+        
     #update the display
     pygame.display.update()

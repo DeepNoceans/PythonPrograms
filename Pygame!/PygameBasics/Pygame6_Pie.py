@@ -79,8 +79,8 @@ while True:
         start_angle = math.radians(270)
         end_angle = math.radians(360)
         pygame.draw.arc(screen, color, position, start_angle, end_angle, width)
-        pygame.draw.line(screen, color, (x, y), (x, y-radius), width)
-        pygame.draw.line(screen, color, (x, y), (x-radius, y), width)
+        pygame.draw.line(screen, color, (x, y), (x, y+radius), width)
+        pygame.draw.line(screen, color, (x, y), (x+radius, y), width)
 
     if p1 and p2 and p3 and p4:
         color = 0,255,0
