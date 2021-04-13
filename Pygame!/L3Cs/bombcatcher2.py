@@ -18,10 +18,16 @@ screen = pygame.display.set_mode((600, 1000))
 pygame.display.set_caption("Bomb Catching Game")
 font1 = pygame.font.Font(None, 24)
 pygame.mouse.set_visible(False)
+pygame.event.set_grab(True)
 white = 255, 255, 255
 red = 220, 50, 50
 yellow = 230, 230, 50
 black = 0, 0, 0
+
+
+cyan = 0, 255, 255
+purple = 255, 0, 255
+green = 0, 255, 0
 
 lives = 3
 score = 0
@@ -33,19 +39,21 @@ pos_x = 250
 pos_y = 965
 
 # bomb_x = random.randint(0, 500)
-bomb_x = 250
-bomb_x1 = 250
-bomb_x2 = 250
-bomb_x3 = 250
+bomb_x = random.randint(0, 500)
+bomb_x1 = random.randint(0, 500)
+bomb_x2 = random.randint(0, 500)
+bomb_x3 = random.randint(0, 500)
+bomb_x4 = random.randint(0, 500)
 
 
 
 bomb_y = -50
-bomb_y1 = -100
-bomb_y2 = -150
-bomb_y3 = -200
+bomb_y1 = -250
+bomb_y2 = -450
+bomb_y3 = -650
+bomb_y4 = -850
 
-vel_y = 1
+vel_y = .4
 
 #repeating loop
 while True:
@@ -75,14 +83,14 @@ while True:
         bomb_y1 += vel_y
         bomb_y2 += vel_y
         bomb_y3 += vel_y
-
+        bomb_y4 += vel_y
 
         #    0
 
         #has the player missed the bomb?
         if bomb_y > 1000:
-            # bomb_x = random.randint(0, 500)
-            bomb_x = 250
+            bomb_x = random.randint(0, 500)
+            # bomb_x = 250
 
             bomb_y = -50
             lives -= 1
@@ -94,8 +102,8 @@ while True:
             if bomb_x > pos_x and bomb_x < pos_x + 200:
                 score += 10
 
-                # bomb_x = random.randint(0, 500)
-                bomb_x = 250
+                bomb_x = random.randint(0, 500)
+                # bomb_x = 250
 
                 bomb_y = -50
 
@@ -104,8 +112,8 @@ while True:
         #     1
 
         if bomb_y1 > 1000:
-            # bomb_x = random.randint(0, 500)
-            bomb_x1 = 250
+            bomb_x = random.randint(0, 500)
+            # bomb_x1 = 250
 
             bomb_y1 = -50
 
@@ -114,12 +122,12 @@ while True:
                 game_over = True
 
         #see if player has caught the bomb
-        elif bomb_y1 > pos_y and bomb_x1 < pos_y + 100:
+        elif bomb_y1 > pos_y:
             if bomb_x1 > pos_x and bomb_x1 < pos_x + 200:
                 score += 10
 
-                # bomb_x = random.randint(0, 500)
-                bomb_x1 = 250
+                bomb_x = random.randint(0, 500)
+                # bomb_x1 = 250
 
                 bomb_y1 = -50
 
@@ -127,8 +135,8 @@ while True:
         #     2
 
         if bomb_y2 > 1000:
-            # bomb_x = random.randint(0, 500)
-            bomb_x2 = 250
+            bomb_x = random.randint(0, 500)
+            # bomb_x2 = 250
 
             bomb_y2 = -50
 
@@ -137,12 +145,12 @@ while True:
                 game_over = True
 
         #see if player has caught the bomb
-        elif bomb_y2 > pos_y and bomb_x2 < pos_y + 100:
+        elif bomb_y2 > pos_y:
             if bomb_x2 > pos_x and bomb_x2 < pos_x + 200:
                 score += 10
 
-                # bomb_x = random.randint(0, 500)
-                bomb_x2 = 250
+                bomb_x = random.randint(0, 500)
+                # bomb_x2 = 250
 
                 bomb_y2 = -50
 
@@ -151,8 +159,8 @@ while True:
         #     3
 
         if bomb_y3 > 1000:
-            # bomb_x = random.randint(0, 500)
-            bomb_x3 = 250
+            bomb_x = random.randint(0, 500)
+            # bomb_x3 = 250
 
             bomb_y3 = -50
             lives -= 1
@@ -160,26 +168,51 @@ while True:
                 game_over = True
 
         #see if player has caught the bomb
-        elif bomb_y3 > pos_y and bomb_x3 < pos_y + 100:
+        elif bomb_y3 > pos_y:
             if bomb_x3 > pos_x and bomb_x3 < pos_x + 200:
                 score += 10
 
-                # bomb_x = random.randint(0, 500)
-                bomb_x3 = 250
+                bomb_x3 = random.randint(0, 500)
+                # bomb_x3 = 250
 
                 bomb_y3 = -50
+
+
+
+         #     4
+
+        if bomb_y4 > 1000:
+            bomb_x = random.randint(0, 500)
+            # bomb_x4 = 250
+
+            bomb_y4 = -50
+            lives -= 1
+            if lives == 0:
+                game_over = True
+
+        #see if player has caught the bomb
+        elif bomb_y4 > pos_y:
+            if bomb_x4 > pos_x and bomb_x4 < pos_x + 200:
+                score += 10
+
+                bomb_x = random.randint(0, 500)
+                # bomb_x4 = 250
+
+                bomb_y4 = -50
 
 
 
         #draw the bomb
         pygame.draw.circle(screen, black, (bomb_x-4, int(bomb_y)-4), 30, 0)
         pygame.draw.circle(screen, yellow, (bomb_x, int(bomb_y)), 30, 0)
-        pygame.draw.circle(screen, black, (bomb_x1-4, int(bomb_y1)-104), 30, 0)
-        pygame.draw.circle(screen, yellow, (bomb_x1, int(bomb_y1)-100), 30, 0)
-        pygame.draw.circle(screen, black, (bomb_x2-4, int(bomb_y2)-204), 30, 0)
-        pygame.draw.circle(screen, yellow, (bomb_x2, int(bomb_y2)-200), 30, 0)
-        pygame.draw.circle(screen, black, (bomb_x3-4, int(bomb_y3)-304), 30, 0)
-        pygame.draw.circle(screen, yellow, (bomb_x3, int(bomb_y3)-300), 30, 0)
+        pygame.draw.circle(screen, black, (bomb_x1-4, int(bomb_y1)-4), 30, 0)
+        pygame.draw.circle(screen, red, (bomb_x1, int(bomb_y1)), 30, 0)
+        pygame.draw.circle(screen, black, (bomb_x2-4, int(bomb_y2)-4), 30, 0)
+        pygame.draw.circle(screen, green, (bomb_x2, int(bomb_y2)), 30, 0)
+        pygame.draw.circle(screen, black, (bomb_x3-4, int(bomb_y3)-4), 30, 0)
+        pygame.draw.circle(screen, cyan, (bomb_x3, int(bomb_y3)), 30, 0)
+        pygame.draw.circle(screen, black, (bomb_x4-4, int(bomb_y4)-4), 30, 0)
+        pygame.draw.circle(screen, purple, (bomb_x4, int(bomb_y4)), 30, 0)
         #set basket position
         pos_x = mouse_x
         if pos_x < 0:
