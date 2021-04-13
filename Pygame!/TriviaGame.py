@@ -36,36 +36,39 @@ class Trivia(object):
         print_text(font2, 550, 25, str(self.score), purple)
 
 
-        if self.counter != 10:
+
+        
+
+        #get correct answer out of data (first)
+        self.correct = int(self.data[self.current+5])
+
+        #display question
+        question = self.current // 6 + 1
+        print_text(font1, 5, 80, "QUESTION " + str(question))
+        print_text(font2, 20, 120, self.data[self.current], yellow)
+
+        #respond to correct answer
+        if self.scored:
+            self.colors = [white, white, white, white]
+            self.colors[self.correct-1] = green
+            print_text(font1, 230, 380, "CORRECT!", green)
             
-
-            #get correct answer out of data (first)
-            self.correct = int(self.data[self.current+5])
-
-            #display question
-            question = self.current // 6 + 1
-            print_text(font1, 5, 80, "QUESTION " + str(question))
-            print_text(font2, 20, 120, self.data[self.current], yellow)
-
-            #respond to correct answer
-            if self.scored:
-                self.colors = [white, white, white, white]
-                self.colors[self.correct-1] = green
-                print_text(font1, 230, 380, "CORRECT!", green)
-                
-                print_text(font2, 170, 420, "Press Enter For Next Question", green)
-            elif self.failed:
-                self.colors = [white, white, white, white]
-                self.colors[self.wronganswer-1] = red
-                self.colors[self.correct-1] = green
-                print_text(font1, 220, 380, "INCORRECT!", red)
-            
-                print_text(font2, 170, 420, "Press Enter For Next Question", red)
-        elif self.counter == 10:
-
+            print_text(font2, 170, 420, "Press Enter For Next Question", green)
+        elif self.failed:
+            self.colors = [white, white, white, white]
+            self.colors[self.wronganswer-1] = red
+            self.colors[self.correct-1] = green
+            print_text(font1, 220, 380, "INCORRECT!", red)
+            print_text(font2, 170, 420, "Press Enter For Next Question", red)
+        if self.counter == 10:
+            self.colors = [white,white,white,white]
             print_text(font2, 170, 420, "Press Space to restart", yellow)
-            print_text(font2, 170, 420, "Press Escape (Esc) to quit", yellow)
-            self.counter = 0
+            print_text(font2, 170, 400, "Press Escape (Esc) to quit", yellow)
+
+                
+
+        
+       
 
 
         #display answers
@@ -90,6 +93,14 @@ class Trivia(object):
 
     def next_question(self):
 
+        if self.counter == 10:
+            self.counter = 0
+            self.score = 0
+        if self.scored or self.failed:
+          self.counter += 1
+        print(self.counter)
+
+        
         if self.scored or self.failed:
             self.scored = False
             self.failed = False
@@ -98,8 +109,9 @@ class Trivia(object):
             self.current += 6
             if self.current >= self.total:
                 self.current = 0
-       
 
+        
+ 
 
 def print_text(font, x, y, text, color=(255, 255, 255), shadow=True):
     if shadow:
@@ -145,6 +157,7 @@ while True:
 
 
                 trivia.next_question()
+                
       
     #clear the screen
     screen.fill((0, 0, 200))
