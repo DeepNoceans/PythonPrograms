@@ -38,22 +38,27 @@ mouse_x = mouse_y = 0
 pos_x = 250
 pos_y = 565
 
-# bomb_x = random.randint(0, 500)
 bomb_x = random.randint(0, 500)
 bomb_x1 = random.randint(0, 500)
 bomb_x2 = random.randint(0, 500)
 bomb_x3 = random.randint(0, 500)
 bomb_x4 = random.randint(0, 500)
 
+bomb_x = 250
+bomb_x1 =250
+bomb_x2 =250
+bomb_x3 =250
+bomb_x4 =250
+
 
 
 bomb_y = -50
 bomb_y1 = -250
 bomb_y2 = -450
-bomb_y3 = -650
-bomb_y4 = -850
+bomb_y3 = -750
+bomb_y4 = -1000
 
-vel_y = .4
+vel_y = 50
 
 #repeating loop
 while True:
@@ -90,7 +95,7 @@ while True:
         #has the player missed the bomb?
         if bomb_y > 600:
             bomb_x = random.randint(0, 500)
-            # bomb_x = 250
+            bomb_x = 250
 
             bomb_y = -50
             lives -= 1
@@ -103,7 +108,7 @@ while True:
                 score += 10
 
                 bomb_x = random.randint(0, 500)
-                # bomb_x = 250
+                bomb_x = 250
 
                 bomb_y = -50
 
@@ -113,7 +118,7 @@ while True:
 
         if bomb_y1 > 600:
             bomb_x1 = random.randint(0, 500)
-            # bomb_x1 = 250
+            bomb_x1 = 250
 
             bomb_y1 = -50
 
@@ -127,7 +132,7 @@ while True:
                 score += 10
 
                 bomb_x1 = random.randint(0, 500)
-                # bomb_x1 = 250
+                bomb_x1 = 250
 
                 bomb_y1 = -50
 
@@ -136,7 +141,7 @@ while True:
 
         if bomb_y2 > 600:
             bomb_x2 = random.randint(0, 500)
-            # bomb_x2 = 250
+            bomb_x2 = 250
 
             bomb_y2 = -50
 
@@ -150,7 +155,7 @@ while True:
                 score += 10
 
                 bomb_x2 = random.randint(0, 500)
-                # bomb_x2 = 250
+                bomb_x2 = 250
 
                 bomb_y2 = -50
 
@@ -160,7 +165,7 @@ while True:
 
         if bomb_y3 > 600:
             bomb_x3 = random.randint(0, 500)
-            # bomb_x3 = 250
+            bomb_x3 = 250
 
             bomb_y3 = -50
             lives -= 1
@@ -173,7 +178,7 @@ while True:
                 score += 10
 
                 bomb_x3 = random.randint(0, 500)
-                # bomb_x3 = 250
+                bomb_x3 = 250
 
                 bomb_y3 = -50
 
@@ -183,7 +188,7 @@ while True:
 
         if bomb_y4 > 600:
             bomb_x4 = random.randint(0, 500)
-            # bomb_x4 = 250
+            bomb_x4 = 250
 
             bomb_y4 = -50
             lives -= 1
@@ -196,7 +201,7 @@ while True:
                 score += 10
 
                 bomb_x4 = random.randint(0, 500)
-                # bomb_x4 = 250
+                bomb_x4 = 250
 
                 bomb_y4 = -50
 

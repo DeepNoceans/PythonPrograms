@@ -45,7 +45,7 @@ pos_y = 970
 
 bomb_x = random.randint(100, 1400)
 bomb_y = -50
-vel_y = 3
+vel_y = .7
 
 vel_x = random.randint(-3, 3)
 #repeating loop
@@ -71,6 +71,21 @@ while True:
     if game_over:
         print_text(font1, 100, 200, "<CLICK TO PLAY>")
     else:
+
+        #print # of lives
+        print_text(font1, 0, 0, "LIVES: " + str(lives))
+
+        #print score
+        print_text(font1, 1400, 0, "SCORE: " + str(score))
+
+        pos_x = mouse_x
+        if pos_x < 0:
+            pos_x = 0
+        elif pos_x > 1400:
+            pos_x = 1400
+        #draw basket
+        pygame.draw.rect(screen, black, (pos_x-2, pos_y-2, 200, 40), 0)
+        pygame.draw.rect(screen, red, (pos_x, pos_y, 200, 40), 0)
         #move the bomb
         bomb_y += vel_y
 
@@ -82,13 +97,35 @@ while True:
   
         #has the player missed the bomb?
         if bomb_y > 1000:
-            bomb_x = random.randint(100, 1400)
-            bomb_y = -50
             lives -= 1
             if lives == 0:
                 game_over = True
             mixer.music.play()
             vel_x = random.randint(-3, 3)
+
+            myfont = pygame.font.Font(None, 41)
+
+            textImage = myfont.render("boom", True, black)
+
+            screen.blit(textImage, (bomb_x, 750))
+
+            myfont = pygame.font.Font(None, 40)
+
+            textImage = myfont.render("boom", True, gray)
+    
+
+            screen.blit(textImage, (bomb_x, 750))
+            
+            pygame.display.update()
+
+            time.sleep(.5)
+
+            bomb_x = random.randint(100, 1400)
+            bomb_y = -50
+
+
+
+
 
 
         #see if player has caught the bomb
@@ -141,20 +178,13 @@ while True:
             pygame.draw.line(screen, color, spark_pos1, spark_pos2, spark_width)
             #set basket position
 
-        pos_x = mouse_x
-        if pos_x < 0:
-            pos_x = 0
-        elif pos_x > 1400:
-            pos_x = 1400
-        #draw basket
-        pygame.draw.rect(screen, black, (pos_x-2, pos_y-2, 200, 40), 0)
-        pygame.draw.rect(screen, red, (pos_x, pos_y, 200, 40), 0)
 
-    #print # of lives
-    print_text(font1, 0, 0, "LIVES: " + str(lives))
+      
 
-    #print score
-    print_text(font1, 1400, 0, "SCORE: " + str(score))
+                    
+        
+
+
 
     pygame.display.update()
 
