@@ -14,7 +14,7 @@ def print_text(font, x, y, text, color=(255, 255, 255)):
 
 #main program begins
 pygame.init()
-screen = pygame.display.set_mode((600, 1000))
+screen = pygame.display.set_mode((600, 600))
 pygame.display.set_caption("Bomb Catching Game")
 font1 = pygame.font.Font(None, 24)
 pygame.mouse.set_visible(False)
@@ -36,7 +36,7 @@ game_over = True
 mouse_x = mouse_y = 0
 
 pos_x = 250
-pos_y = 965
+pos_y = 565
 
 # bomb_x = random.randint(0, 500)
 bomb_x = random.randint(0, 500)
@@ -88,7 +88,7 @@ while True:
         #    0
 
         #has the player missed the bomb?
-        if bomb_y > 1000:
+        if bomb_y > 600:
             bomb_x = random.randint(0, 500)
             # bomb_x = 250
 
@@ -111,8 +111,8 @@ while True:
 
         #     1
 
-        if bomb_y1 > 1000:
-            bomb_x = random.randint(0, 500)
+        if bomb_y1 > 600:
+            bomb_x1 = random.randint(0, 500)
             # bomb_x1 = 250
 
             bomb_y1 = -50
@@ -126,7 +126,7 @@ while True:
             if bomb_x1 > pos_x and bomb_x1 < pos_x + 200:
                 score += 10
 
-                bomb_x = random.randint(0, 500)
+                bomb_x1 = random.randint(0, 500)
                 # bomb_x1 = 250
 
                 bomb_y1 = -50
@@ -134,8 +134,8 @@ while True:
 
         #     2
 
-        if bomb_y2 > 1000:
-            bomb_x = random.randint(0, 500)
+        if bomb_y2 > 600:
+            bomb_x2 = random.randint(0, 500)
             # bomb_x2 = 250
 
             bomb_y2 = -50
@@ -149,7 +149,7 @@ while True:
             if bomb_x2 > pos_x and bomb_x2 < pos_x + 200:
                 score += 10
 
-                bomb_x = random.randint(0, 500)
+                bomb_x2 = random.randint(0, 500)
                 # bomb_x2 = 250
 
                 bomb_y2 = -50
@@ -158,8 +158,8 @@ while True:
 
         #     3
 
-        if bomb_y3 > 1000:
-            bomb_x = random.randint(0, 500)
+        if bomb_y3 > 600:
+            bomb_x3 = random.randint(0, 500)
             # bomb_x3 = 250
 
             bomb_y3 = -50
@@ -181,8 +181,8 @@ while True:
 
          #     4
 
-        if bomb_y4 > 1000:
-            bomb_x = random.randint(0, 500)
+        if bomb_y4 > 600:
+            bomb_x4 = random.randint(0, 500)
             # bomb_x4 = 250
 
             bomb_y4 = -50
@@ -195,7 +195,7 @@ while True:
             if bomb_x4 > pos_x and bomb_x4 < pos_x + 200:
                 score += 10
 
-                bomb_x = random.randint(0, 500)
+                bomb_x4 = random.randint(0, 500)
                 # bomb_x4 = 250
 
                 bomb_y4 = -50
