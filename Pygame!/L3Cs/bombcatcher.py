@@ -45,7 +45,7 @@ pos_y = 970
 
 bomb_x = random.randint(100, 1400)
 bomb_y = -50
-vel_y = .7
+vel_y = 3
 
 vel_x = random.randint(-3, 3)
 #repeating loop
