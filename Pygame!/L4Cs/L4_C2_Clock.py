@@ -119,7 +119,11 @@ while not done:
     target=(pos_x+hour_x, pos_y+hour_y)
 
     pygame.draw.line(
-        screen, hour_color, (pos_x, pos_y), target, 17)
+        screen, hour_color, (pos_x-5, pos_y-5), target2, 17)
+
+    # pygame.draw.line(
+    #     screen, hour_color, (pos_x, pos_y), target, 17)
+
 
     #draw the minutes hand
 
@@ -132,7 +136,7 @@ while not done:
 
     sec_angle = wrap_angle(seconds * (360/60) - 90)
 
-    pygame.draw.line(screen, (40, 80, 160), (pos_x, pos_y), target2, 12)
+    pygame.draw.line(screen, (40, 80, 160), (pos_x-5, pos_y-5), target2, 12)
 
     pygame.draw.line(screen, minute_color, (pos_x, pos_y), target, 12)
 
@@ -145,6 +149,11 @@ while not done:
 
     pygame.draw.line(screen, second_color, (pos_x, pos_y), target, 6)
 
+    minutes = "{:02d}".format(minutes)
+
+    hours = "{:02d}".format(hours)
+
+    seconds = "{:02d}".format(seconds)
 
     #cover the center
     pygame.draw.circle(screen, white, (pos_x, pos_y), 13)

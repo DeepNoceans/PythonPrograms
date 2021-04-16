@@ -208,8 +208,9 @@ class Application(Frame):
         #     adjectives += "electric, "
         # body_part = self.body_part.get()
         # create the receipt
-        price_string = "{:.2f}".format(price)
+        price_string = "{:02.2f}".format(price)
 
+       
 
         receipt = "Hello " + person + "! Thank you for choosing Chipotle!\n"
         receipt += "The price of your meal is $" + price_string + ".\n"
