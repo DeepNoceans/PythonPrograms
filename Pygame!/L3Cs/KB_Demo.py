@@ -49,9 +49,9 @@ while True:
             game_over = False
             score = 0
             seconds = 11
-            clock_start = time.clock()
+            clock_start = time()
 
-    current = time.clock() - clock_start
+    current = time() - clock_start
     speed = score * 6
     if seconds-current < 0:
         game_over = True

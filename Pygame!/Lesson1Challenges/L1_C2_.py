@@ -1,5 +1,6 @@
 import pygame
 import random
+import sys
 from pygame.locals import *
 
 pygame.init()
@@ -11,7 +12,7 @@ pygame.display.set_caption("Crazy Lines")
 
 while True:
     for event in pygame.event.get():
-        if event.type in (QUIT, KEYDOWN):
+        if event.type == QUIT:
             sys.exit()
 
     screen.fill((100, 120, 150))

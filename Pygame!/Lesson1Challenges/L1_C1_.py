@@ -11,7 +11,7 @@ pygame.display.set_caption("Ellipse")
 
 while True:
     for event in pygame.event.get():
-        if event.type in (QUIT, KEYDOWN):
+        if event.type == QUIT:
             sys.exit()
 
     screen.fill((20,20,20))

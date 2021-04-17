@@ -28,7 +28,7 @@ RGBcycle = 3
 
 while True:
     for event in pygame.event.get():
-        if event.type in (QUIT, KEYDOWN):
+        if event.type == QUIT:
             sys.exit()
 
     

@@ -42,7 +42,7 @@ white = 255, 255, 255
 
 second_color = 130, 180, 255
 
-hour_color = 200, 210, 255
+hour_color = 80, 150, 255
 
 pos_x = 300
 pos_y = 250
@@ -68,8 +68,18 @@ while not done:
 
     screen.fill((50, 100, 200))
 
+    for n in range(1, 51):
+        angle = math.radians(n * (360/60)-90)
+        x = math.cos(angle) * (radius+200)-600
+        y = math.sin(angle) * (radius+200)-550
+
+        x2 = math.cos(angle) * (radius+200)+900
+        y2 = math.sin(angle) * (radius+200)+750
+
+        pygame.draw.line(screen, (50, 110, 210), (x, y), (x2, y2), 20)
+
     #draw one step_around the circle
-    pygame.draw.circle (screen, white, (pos_x, pos_y), radius, 6)
+    pygame.draw.circle(screen, white, (pos_x, pos_y), radius, 6)
 
     #draw the clock numbers 1-12
 
@@ -81,14 +91,39 @@ while not done:
 
         print_text2(font1, pos_x+x, pos_y+y, str(n))
 
+    for n in range(1, 61):
+        angle = math.radians(n * (360/60)-90)
+        x = math.cos(angle) * (radius-20)+300
+        y = math.sin(angle) * (radius-20)+250
     
+        x2 = math.cos(angle) * (radius-3)+300
+        y2 = math.sin(angle) * (radius-3)+250
+        
+        pygame.draw.line(screen, white, (x, y), (x2, y2), 5)
+
+   
 
     #get the time of day
     
-    today = datetime.today()
+    today = datetime.now()
     hours = today.hour % 12
     minutes = today.minute
     seconds = today.second
+
+    #draw the hours hand shadow
+
+    hour_angle = wrap_angle(hours * (360/12) - 90)
+    hour_angle = math.radians(hour_angle)
+
+    hour_x = math.cos(hour_angle) * (radius-80)
+
+    hour_y = math.sin(hour_angle) * (radius-80)
+    target = (pos_x+hour_x, pos_y+hour_y)
+    target2 = (pos_x+hour_x-5, pos_y+hour_y-5)
+
+    pygame.draw.line(screen, (40, 80, 160), (pos_x-5, pos_y-5), target2, 17)
+
+    #draw the seconds hand shadow
 
     sec_angle = wrap_angle(seconds * (360/60) - 90)
 
@@ -100,11 +135,23 @@ while not done:
 
     pygame.draw.line(screen, (40, 80, 160), (pos_x-5, pos_y-5), target2, 6)
 
+    #draw the minutes hand shadow
+    min_angle = wrap_angle(minutes * (360/60) - 90)
+    min_angle = math.radians(min_angle)
+    min_x = math.cos(min_angle) * (radius-60)
+    min_y = math.sin(min_angle) * (radius-60)
+    target = (pos_x+min_x, pos_y+min_y)
+    target2 = (pos_x+min_x-5, pos_y+min_y-5)
+
+    sec_angle = wrap_angle(seconds * (360/60) - 90)
+
+    pygame.draw.line(screen, (40, 80, 160), (pos_x-5, pos_y-5), target2, 12)
+
     for n in range(1, 13):
 
         angle = math.radians(n * (360/12) - 90)
-        x = math.cos(angle) * (radius-35) - 10
-        y = math.sin(angle) * (radius-35) - 10
+        x = math.cos(angle) * (radius-50) - 20
+        y = math.sin(angle) * (radius-50) - 20
 
         print_text(font1, pos_x+x, pos_y+y, str(n))
 
@@ -117,12 +164,10 @@ while not done:
 
     hour_y=math.sin(hour_angle) * (radius-80)
     target=(pos_x+hour_x, pos_y+hour_y)
+    target2 = (pos_x+hour_x-5, pos_y+hour_y-5)
 
-    pygame.draw.line(
-        screen, hour_color, (pos_x-5, pos_y-5), target2, 17)
-
-    # pygame.draw.line(
-    #     screen, hour_color, (pos_x, pos_y), target, 17)
+    
+    pygame.draw.line(screen, hour_color, (pos_x, pos_y), target, 17)
 
 
     #draw the minutes hand
@@ -134,9 +179,6 @@ while not done:
     target = (pos_x+min_x, pos_y+min_y)
     target2 = (pos_x+min_x-5, pos_y+min_y-5)
 
-    sec_angle = wrap_angle(seconds * (360/60) - 90)
-
-    pygame.draw.line(screen, (40, 80, 160), (pos_x-5, pos_y-5), target2, 12)
 
     pygame.draw.line(screen, minute_color, (pos_x, pos_y), target, 12)
 
@@ -146,6 +188,9 @@ while not done:
     sec_y = math.sin(sec_angle) * (radius-40)
     target = (pos_x+sec_x, pos_y+sec_y)
     target2 = (pos_x+sec_x-5, pos_y+sec_y-5)
+
+    sec_angle = wrap_angle(seconds * (360/60) - 90)
+   
 
     pygame.draw.line(screen, second_color, (pos_x, pos_y), target, 6)
 

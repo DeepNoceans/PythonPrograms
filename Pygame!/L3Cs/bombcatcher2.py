@@ -1,4 +1,5 @@
-# Bomb Catcher Game
+# Mohamad Moussaoui
+
 
 import sys
 import random
@@ -58,7 +59,7 @@ bomb_y2 = -450
 bomb_y3 = -650
 # bomb_y4 = -850
 
-vel_y = .5
+vel_y = .55
 
 #repeating loop
 while True:

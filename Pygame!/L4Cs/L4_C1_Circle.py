@@ -6,13 +6,13 @@ from pygame.locals import *
 
 pygame.init()
 
-screen = pygame.display.set_mode((600,500))
+screen = pygame.display.set_mode((1000, 1000))
 pygame.display.set_caption("Circle Demo")
 screen.fill((0,0,100))
 
-pos_x = 300
+pos_x  = 600
 
-pos_y = 250
+pos_y  = 550
 
 radius = 200
 
@@ -65,10 +65,10 @@ while True:
     y = math.sin( math.radians (angle)) * radius
 
     #draw one step around the circle
-    pos = (int(pos_x + x), int(pos_y + y)), (int(pos_x + x)+20,
-                                             int(pos_y + y)+20), (int(pos_x + x)-40, int(pos_y + y)-40), (int(pos_x + x)+100, int(pos_y + y)-10)
+    pos = (int(pos_x + x), int(pos_y + y)), (int(pos_x + x)+200,
+                                     int(pos_y + y)-320), (int(pos_x + x)-40, int(pos_y + y)-40), (int(pos_x + x)+400, int(pos_y + y)+300), (int(pos_x + x)-500, int(pos_y + y)-100)
 
-    pygame.draw.polygon(screen,color,pos, 0)
+    pygame.draw.polygon(screen,color,pos, 1)
     # pygame.draw.circle(screen, color, pos, wide, 0)
 
     pygame.display.update()
