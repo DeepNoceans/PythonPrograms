@@ -47,7 +47,7 @@ bomb_x = random.randint(100, 1400)
 bomb_y = -50
 vel_y = 3
 
-vel_x = random.randint(-3, 3)
+# vel_x = random.randint(-3, 3)
 #repeating loop
 while True:
     for event in pygame.event.get():
@@ -89,10 +89,10 @@ while True:
         #move the bomb
         bomb_y += vel_y
 
-        bomb_x += vel_x
+        # bomb_x += vel_x
 
-        if bomb_x > 1470 or bomb_x < 30:
-            vel_x = -vel_x
+        # if bomb_x > 1470 or bomb_x < 30:
+            # vel_x = -vel_x
 
   
         #has the player missed the bomb?
