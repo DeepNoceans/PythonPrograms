@@ -92,7 +92,7 @@ group.add(dragon)
 
 #main loop
 while True:
-    framerate.tick(10)
+    framerate.tick(5)
     ticks = pygame.time.get_ticks()
 
     for event in pygame.event.get():
