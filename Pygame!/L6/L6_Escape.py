@@ -23,8 +23,10 @@ class MySprite(pygame.sprite.Sprite):
         self.last_time = 0
 
     #X property
-    def _getx(self): return self.rect.x
-    def _setx(self, value): self.rect.x = value
+    def _getx(self):
+        return self.rect.x
+    def _setx(self, value):
+        self.rect.x = value
     X = property(_getx, _setx)
 
     #Y property
@@ -75,6 +77,11 @@ def print_text(font, x, y, text, color=(255, 255, 255)):
     screen.blit(imgText, (x, y))
 
 
+def print_text2(font, x, y, text, color=(255, 50, 50)):
+    imgText = font.render(text, True, color)
+    screen.blit(imgText, (x, y))
+
+
 def reset_arrow():
     y = random.randint(250, 350)
     arrow.position = 800, y
@@ -85,6 +92,10 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Escape The Dragon Game")
 font = pygame.font.Font(None, 18)
+font2 = pygame.font.Font(None, 42)
+font3 = pygame.font.Font(None, 42)
+
+
 framerate = pygame.time.Clock()
 
 #load bitmaps
@@ -110,7 +121,10 @@ group.add(player)
 #create the arrow sprite
 arrow = MySprite(screen)
 arrow.load("flame.png", 40, 16, 1)
-arrow.position = 800, 320
+arrow.position = 1600, 320
+
+
+
 group.add(arrow)
 
 arrow_vel = 8.0
@@ -118,13 +132,16 @@ game_over = False
 you_win = False
 player_jumping = False
 jump_vel = 0.0
+
+jump_vel_boost = .08
 player_start_y = player.Y
 player_air = False
 done = False
+hit_test = False
 
 #repeating loop
 while not done:
-    framerate.tick(30)
+    framerate.tick(95)
     ticks = pygame.time.get_ticks()
 
     for event in pygame.event.get():
@@ -133,27 +150,44 @@ while not done:
     keys = pygame.key.get_pressed()
     if keys[K_ESCAPE]:
         done = True
+
+    # Press SPACE?
     elif keys[K_SPACE]:
         if not player_jumping:
             player_jumping = True
-            jump_vel = -8.0
+            jump_vel = -6.0
             player_air = False
-    if keys[K_SPACE] and player_jumping:
+
+    # Holding SPACE?
+    if keys[K_SPACE] and player_jumping and not player.Y <= 25:
             player_air = True
 
+    # If holding space
     if player_air == True:
-        jump_vel -= .5
-        player_air = False              
+        jump_vel += jump_vel_boost
+        player_air = False    
+        jump_vel_boost += .005
+        print("JumpING")
+  
+    # if let go (now ur falling)
+    elif player.Y <= 25 or not keys[K_SPACE] and player_jumping:
+        jump_vel += .5
+        jump_vel_boost = .08
+        print("let goooo")
+
+    # if player.Y == player_start_y:
+    #     player_jumping = False
+
     #update the arrow
     if not game_over:
         arrow.X -= arrow_vel
         if arrow.X < -40:
             reset_arrow()
-
     #did arrow hit player?
     if pygame.sprite.collide_rect(arrow, player):
         reset_arrow()
-        player.X -= 10
+        player.X -= 15
+        hit_test = True
 
     #did arrow hit dragon?
     if pygame.sprite.collide_rect(arrow, dragon):
@@ -166,21 +200,26 @@ while not done:
         game_over = True
 
     #did the dragon get defeated?
-    if dragon.X < -100:
+    if dragon.X < -200:
         you_win = True
         game_over = True
 
     #is the player jumping?
     if player_jumping:
         player.Y += jump_vel
-        jump_vel += 0.5
+        # jump_vel += .05
         if player.Y > player_start_y:
             player_jumping = False
             player.Y = player_start_y
             jump_vel = 0.0
 
     #draw the background
-    screen.blit(bg, (0, 0))
+    screen.blit(bg, (arrow.X, 0))
+    screen.blit(bg, (arrow.X-799,0))
+    screen.blit(bg, (arrow.X-1598, 0))
+    
+
+
 
     #update sprites
     if not game_over:
@@ -190,14 +229,25 @@ while not done:
     group.draw(screen)
 
     print_text(font, 350, 560, "Press SPACE to jump!")
+    print_text(font, 20, 50, f"Player X: {player.X}")
+    print_text(font, 20, 65, f"Player Y: {player.Y}")
     
-    print_text(
-        font, 20, 20, f"Score: {epic_gamer_score_exclusively_for_epic_gamers}")
+            
+    if hit_test:
+        print_text2(font3, 20, 20, f"Score: {epic_gamer_score_exclusively_for_epic_gamers}")
+
+    else:
+        print_text(
+            font2, 20, 20, f"Score: {epic_gamer_score_exclusively_for_epic_gamers}")
+    if arrow.X <= 600:
+        hit_test = False        
+        
     if game_over:
         print_text(font, 360, 100, "G A M E   O V E R")
         if you_win:
             print_text(font, 330, 130, "YOU BEAT THE DRAGON!")
         else:
             print_text(font, 330, 130, "THE DRAGON GOT YOU!")
+    dragon.Y = player.Y - 70
 
     pygame.display.update()
