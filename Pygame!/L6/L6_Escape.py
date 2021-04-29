@@ -83,8 +83,13 @@ def print_text2(font, x, y, text, color=(255, 50, 50)):
 
 
 def reset_arrow():
-    y = random.randint(250, 350)
+    y = random.randint(280, 350)
     arrow.position = 800, y
+
+def reset_arrow2():
+    y = random.randint(190, 275)
+    arrow2.position = 800, y
+
 
 
 #main program begins
@@ -107,7 +112,7 @@ group = pygame.sprite.Group()
 #create the dragon sprite
 dragon = MySprite(screen)
 dragon.load("dragon.png", 260, 150, 3)
-dragon.position = 100, 230
+dragon.position = 150, 230
 group.add(dragon)
 
 #create the player sprite
@@ -115,7 +120,7 @@ player = MySprite(screen)
 player.load("caveman.png", 50, 64, 8)
 player.first_frame = 1
 player.last_frame = 7
-player.position = 400, 303
+player.position = 500, 303
 group.add(player)
 
 #create the arrow sprite
@@ -123,11 +128,15 @@ arrow = MySprite(screen)
 arrow.load("flame.png", 40, 16, 1)
 arrow.position = 1600, 320
 
-
+arrow2 = MySprite(screen)
+arrow2.load("flame.png", 40, 16, 1)
+arrow2.position = 1600, 320
 
 group.add(arrow)
+group.add(arrow2)
 
 arrow_vel = 8.0
+arrow2_vel= 8
 game_over = False
 you_win = False
 player_jumping = False
@@ -181,17 +190,31 @@ while not done:
     #update the arrow
     if not game_over:
         arrow.X -= arrow_vel
+        arrow2.X -= arrow_vel
         if arrow.X < -40:
             reset_arrow()
     #did arrow hit player?
     if pygame.sprite.collide_rect(arrow, player):
         reset_arrow()
-        player.X -= 15
+        player.X -= 10
+        dragon.X += 5
+
+        hit_test = True
+
+    if pygame.sprite.collide_rect(arrow2, player):
+        reset_arrow2()
+        player.X -= 10
+        dragon.X += 5
         hit_test = True
 
     #did arrow hit dragon?
     if pygame.sprite.collide_rect(arrow, dragon):
         reset_arrow()
+        dragon.X -= 10
+        epic_gamer_score_exclusively_for_epic_gamers += 1
+
+    if pygame.sprite.collide_rect(arrow2, dragon):
+        reset_arrow2()
         dragon.X -= 10
         epic_gamer_score_exclusively_for_epic_gamers += 1
 
@@ -239,7 +262,7 @@ while not done:
     else:
         print_text(
             font2, 20, 20, f"Score: {epic_gamer_score_exclusively_for_epic_gamers}")
-    if arrow.X <= 600:
+    if arrow.X <= 400:
         hit_test = False        
         
     if game_over:
