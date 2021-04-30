@@ -87,7 +87,7 @@ def reset_arrow():
     arrow.position = 800, y
 
 def reset_arrow2():
-    y = random.randint(190, 275)
+    y = random.randint(190, 230)
     arrow2.position = 800, y
 
 
@@ -105,6 +105,9 @@ framerate = pygame.time.Clock()
 
 #load bitmaps
 bg = pygame.image.load("background.png").convert_alpha()
+
+bill = pygame.image.load("flame.png").convert_alpha()
+print(bill.get_size())
 
 #create a sprite group
 group = pygame.sprite.Group()
@@ -125,18 +128,18 @@ group.add(player)
 
 #create the arrow sprite
 arrow = MySprite(screen)
-arrow.load("flame.png", 40, 16, 1)
+arrow.load("Bill2.png", 26, 16, 1)
 arrow.position = 1600, 320
 
 arrow2 = MySprite(screen)
-arrow2.load("flame.png", 40, 16, 1)
+arrow2.load("Bill2.png", 26, 16, 1)
 arrow2.position = 1600, 320
 
 group.add(arrow)
 group.add(arrow2)
 
 arrow_vel = 8.0
-arrow2_vel= 8
+arrow2_vel= 12
 game_over = False
 you_win = False
 player_jumping = False
@@ -190,7 +193,7 @@ while not done:
     #update the arrow
     if not game_over:
         arrow.X -= arrow_vel
-        arrow2.X -= arrow_vel
+        arrow2.X -= arrow2_vel
         if arrow.X < -40:
             reset_arrow()
     #did arrow hit player?
@@ -207,6 +210,8 @@ while not done:
         dragon.X += 5
         hit_test = True
 
+    if arrow2.X <= 0:
+        reset_arrow2()
     #did arrow hit dragon?
     if pygame.sprite.collide_rect(arrow, dragon):
         reset_arrow()
