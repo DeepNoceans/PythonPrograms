@@ -76,7 +76,6 @@ def print_text(font, x, y, text, color=(255, 255, 255)):
     imgText = font.render(text, True, color)
     screen.blit(imgText, (x, y))
 
-
 def print_text2(font, x, y, text, color=(255, 50, 50)):
     imgText = font.render(text, True, color)
     screen.blit(imgText, (x, y))
@@ -90,6 +89,8 @@ def reset_arrow2():
     y = random.randint(190, 230)
     arrow2.position = 800, y
 
+def reset_sprite():
+    pass
 
 
 #main program begins

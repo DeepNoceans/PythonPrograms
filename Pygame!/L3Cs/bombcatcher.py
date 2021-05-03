@@ -37,7 +37,8 @@ gray = 40, 40, 40
 lives = 3
 score = 0
 clock_start = 0
-game_over = True
+game_over = False
+ur_done = False
 mouse_x = mouse_y = 0
 
 pos_x = 300
@@ -61,11 +62,11 @@ while True:
                 game_over = False
                 lives = 3
                 score = 0
-
+                sys.exit()
     keys = pygame.key.get_pressed()
     if keys[K_ESCAPE]:
         sys.exit()
-
+        
     screen.fill((100, 100, 200))
 
     if game_over:
@@ -100,6 +101,7 @@ while True:
             lives -= 1
             if lives == 0:
                 game_over = True
+                ur_done = True
             mixer.music.play()
             vel_x = random.randint(-3, 3)
 
@@ -180,10 +182,24 @@ while True:
 
 
       
+    if ur_done:
 
-                    
-        
 
+        myfont = pygame.font.Font(None, 250)
+
+        textImage = myfont.render("GAME OVER", True, gray)
+
+        screen.blit(textImage, (200, 300))
+        pygame.display.update()
+        time.sleep(1)
+        myfont = pygame.font.Font(None, 50)
+
+        textImage = myfont.render("Bruh.", True, white)
+
+        screen.blit(textImage, (400, 400))
+        pygame.display.update()
+        time.sleep(.4)
+        sys.exit()
 
 
     pygame.display.update()

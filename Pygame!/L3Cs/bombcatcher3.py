@@ -33,6 +33,8 @@ bomb_bird = pygame.transform.scale(bomb_bird,(100, 120))
 WP1 = pygame.image.load("WP_angry_birds1.jpg").convert_alpha()
 WP1 = pygame.transform.scale(WP1, (1500, 1000))
 
+wood = pygame.image.load("WoodenBlock2.png").convert_alpha()
+wood = pygame.transform.scale(wood, (205,50))
 white = 255, 255, 255
 red = 220, 50, 50
 yellow = 230, 230, 50
@@ -98,6 +100,7 @@ while True:
         #draw basket
         pygame.draw.rect(screen, black, (pos_x-2, pos_y-2, 200, 40), 0)
         pygame.draw.rect(screen, red, (pos_x, pos_y, 200, 40), 0)
+        screen.blit(wood, (pos_x-3, pos_y-10))
         #move the bomb
         bomb_y += vel_y
 
@@ -146,5 +149,5 @@ while True:
         pygame.draw.circle(screen, gray, (bomb_x, int(bomb_y)), 40, 0)
         screen.blit(bomb_bird, (bomb_x-53, int(bomb_y)-77))
        
-        
+        screen.blit(bomb_bird, (bomb_x-53, int(bomb_y)-77))
     pygame.display.update()
