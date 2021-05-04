@@ -88,6 +88,7 @@ framerate = pygame.time.Clock()
 dragon = MySprite(screen)
 dragon.load("dragon.png", 260, 150, 3)
 group = pygame.sprite.Group()
+
 group.add(dragon)
 
 #main loop

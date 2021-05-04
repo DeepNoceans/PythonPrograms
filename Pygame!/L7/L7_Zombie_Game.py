@@ -66,8 +66,13 @@ for n in range(0, 10):
 #create heath sprite
 health = MySprite()
 health.load("health.png", 32, 32, 1)
-health.position = 400, 300
+health.position = 400, 400
 health_group.add(health)
+
+health2 = MySprite()
+health2.load("health.png", 32, 32, 1)
+health2.position = 400, 200
+health_group.add(health2)
 
 game_over = False
 player_moving = False
@@ -113,7 +118,7 @@ while True:
         else:
             #move player in direction
             player.velocity = calc_velocity(player.direction, 1.5)
-            player.velocity.x *= 1.5
+            player.velocity.x *= 1.8
             player.velocity.y *= 1.5
 
         #update player sprite
@@ -153,6 +158,7 @@ while True:
         #check for collision with zombies
         attacker = None
         attacker = pygame.sprite.spritecollideany(player, zombie_group)
+        bumper = pygame.sprite.spritecollideany(zombie_group, zombie_group)
         if attacker != None:
             #we got a hit, now do a more precise check
             if pygame.sprite.collide_rect_ratio(0.5)(player, attacker):
@@ -163,7 +169,8 @@ while True:
                     attacker.X += 10
             else:
                 attacker = None
-
+        if pygame.sprite.collide_rect_ratio(0.5)(bumper, bumper):
+            bumper.X -= 10 
         #update the health drop
         health_group.update(ticks, 50)
 
@@ -172,8 +179,15 @@ while True:
             player_health += 30
             if player_health > 100:
                 player_health = 100
-            health.X = random.randint(0, 700)
-            health.Y = random.randint(0, 500)
+            health.X = random.randint(100, 700)
+            health.Y = random.randint(100, 500)
+
+        if pygame.sprite.collide_rect_ratio(0.5)(player, health2):
+            player_health += 30
+            if player_health > 100:
+                player_health = 100
+            health2.X = random.randint(100, 700)
+            health2.Y = random.randint(100, 500)
 
     #is player dead?
     if player_health <= 0:
