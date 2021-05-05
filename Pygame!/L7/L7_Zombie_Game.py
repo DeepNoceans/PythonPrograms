@@ -10,6 +10,9 @@ import pygame
 from pygame.locals import *
 from MyLibrary import *
 
+def testf():
+    print("TEST")
+
 
 def calc_velocity(direction, vel=1.0):
     velocity = Point(0, 0)
@@ -177,8 +180,12 @@ while True:
 
         # if pygame.sprite.collide_rect_ratio(0.5)(bumper, bumper):
         #     bumper.X -= 10 
-        # #update the health drop
-        # health_group.update(ticks, 50)
+
+
+
+
+        #update the health drop
+        health_group.update(ticks, 50)
 
 
 
@@ -214,8 +221,12 @@ while True:
     pygame.draw.rect(screen, (50, 150, 50, 180),
                      Rect(300, 570, player_health*2, 25))
     pygame.draw.rect(screen, (100, 200, 100, 180), Rect(300, 570, 200, 25), 2)
-
+    
     if game_over:
         print_text(font, 300, 100, "G A M E   O V E R")
+
+
+    pygame.time.set_timer(test, 1)
+
 
     pygame.display.update()
