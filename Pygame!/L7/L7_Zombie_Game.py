@@ -158,7 +158,9 @@ while True:
         #check for collision with zombies
         attacker = None
         attacker = pygame.sprite.spritecollideany(player, zombie_group)
-        bumper = pygame.sprite.spritecollideany(zombie_group, zombie_group)
+
+        # bumper = pygame.sprite.spritecollideany(zombie_group, zombie_group)
+
         if attacker != None:
             #we got a hit, now do a more precise check
             if pygame.sprite.collide_rect_ratio(0.5)(player, attacker):
@@ -173,10 +175,10 @@ while True:
 
 
 
-        if pygame.sprite.collide_rect_ratio(0.5)(bumper, bumper):
-            bumper.X -= 10 
-        #update the health drop
-        health_group.update(ticks, 50)
+        # if pygame.sprite.collide_rect_ratio(0.5)(bumper, bumper):
+        #     bumper.X -= 10 
+        # #update the health drop
+        # health_group.update(ticks, 50)
 
 
 
