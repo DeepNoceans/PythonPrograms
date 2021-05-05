@@ -169,10 +169,17 @@ while True:
                     attacker.X += 10
             else:
                 attacker = None
+
+
+
+
         if pygame.sprite.collide_rect_ratio(0.5)(bumper, bumper):
             bumper.X -= 10 
         #update the health drop
         health_group.update(ticks, 50)
+
+
+
 
         #check for collision with health
         if pygame.sprite.collide_rect_ratio(0.5)(player, health):
