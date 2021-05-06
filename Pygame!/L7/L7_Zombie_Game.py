@@ -10,8 +10,6 @@ import pygame
 from pygame.locals import *
 from MyLibrary import *
 
-def testf():
-    print("TEST")
 
 
 def calc_velocity(direction, vel=1.0):
@@ -82,27 +80,41 @@ player_moving = False
 player_health = 100
 
 
+
+USEREVENT = 0
+
+testf = USEREVENT + 1
+
+pygame.time.set_timer(testf, 10000)
+
 #repeating loop
 while True:
     timer.tick(50)
     ticks = pygame.time.get_ticks()
 
+
     for event in pygame.event.get():
+        if event.type == testf:
+            zombie = MySprite()
+            zombie.load("zombie walk.png", 96, 96, 8)
+            zombie.position = random.randint(0, 700), random.randint(0, 500)
+            zombie.direction = random.randint(0, 3) * 2
+            zombie_group.add(zombie)
         if event.type == QUIT:
             sys.exit()
     keys = pygame.key.get_pressed()
     if keys[K_ESCAPE]:
         sys.exit()
-    elif keys[K_UP] or keys[K_w]:
+    elif keys[K_UP] or keys[K_e]:
         player.direction = 0
         player_moving = True
-    elif keys[K_RIGHT] or keys[K_d]:
+    elif keys[K_RIGHT] or keys[K_f]:
         player.direction = 2
         player_moving = True
-    elif keys[K_DOWN] or keys[K_s]:
+    elif keys[K_DOWN] or keys[K_d]:
         player.direction = 4
         player_moving = True
-    elif keys[K_LEFT] or keys[K_a]:
+    elif keys[K_LEFT] or keys[K_s]:
         player.direction = 6
         player_moving = True
     else:
@@ -167,7 +179,7 @@ while True:
         if attacker != None:
             #we got a hit, now do a more precise check
             if pygame.sprite.collide_rect_ratio(0.5)(player, attacker):
-                player_health -= 10
+                player_health -= .5
                 if attacker.X < player.X:
                     attacker.X -= 10
                 elif attacker.X > player.X:
@@ -175,8 +187,21 @@ while True:
             else:
                 attacker = None
 
+        for i in zombie_group:     
+            attacker = None
+            attacker = pygame.sprite.spritecollideany(i, zombie_group)
 
+            # bumper = pygame.sprite.spritecollideany(zombie_group, zombie_group)
 
+            if attacker != None:
+                #we got a hit, now do a more precise check
+                if pygame.sprite.collide_rect_ratio(.5)(i, attacker):
+                    if attacker.X < i.X:
+                        attacker.X -= 10
+                    elif attacker.X > i.X:
+                        attacker.X += 10
+                else:
+                    attacker = None
 
         # if pygame.sprite.collide_rect_ratio(0.5)(bumper, bumper):
         #     bumper.X -= 10 
@@ -226,7 +251,6 @@ while True:
         print_text(font, 300, 100, "G A M E   O V E R")
 
 
-    pygame.time.set_timer(test, 1)
 
 
     pygame.display.update()

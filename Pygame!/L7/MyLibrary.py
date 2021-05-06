@@ -102,3 +102,6 @@ class Point(object):
     def __str__(self):
         return "{X:" + "{:.0f}".format(self.__x) + \
             ",Y:" + "{:.0f}".format(self.__y) + "}"
+
+
+
