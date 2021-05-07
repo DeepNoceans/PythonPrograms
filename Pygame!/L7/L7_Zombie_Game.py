@@ -85,7 +85,7 @@ USEREVENT = 0
 
 testf = USEREVENT + 1
 
-pygame.time.set_timer(testf, 10000)
+pygame.time.set_timer(testf, 100)
 
 #repeating loop
 while True:
