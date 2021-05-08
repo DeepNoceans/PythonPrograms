@@ -2,6 +2,26 @@
 import sys, time, random, math, pygame
 from pygame.locals import *
 from MyLibrary import *
+levels = (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+          2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
+          2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
+          2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+          2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+          2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+          2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+          2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
+          2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
+          2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2), (3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                                                3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                                                3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                                                3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)
+          
 
 
 # this function increments the levels
@@ -23,7 +43,7 @@ def update_blocks():
 
 #this function sets up the blocks for the level
 def load_level():
-    global level, block_image, block_group, levels
+    global level, levels, block_image, block_group
     block_image = pygame.image.load("blocks.png").convert_alpha()
     block_group.empty() #reset block group
     for bx in range(0,12):
@@ -35,7 +55,7 @@ def load_level():
             block.position = x,y
 
             #read blocks from level data
-            num = level[level][by*12+bx]
+            num = levels[level][by*12+bx]
             block.first_frame = num-1
             block.last_frame = num-1
             if num > 0: #0 is blank
@@ -43,34 +63,36 @@ def load_level():
 
 
 
-def game_init():
-    global screen, font, timer
-    global paddle_group, block_group, ball_group
-    global paddle, block_image, block, ball_group
+# def game_init():
+global screen, font, timer
+global paddle_group, block_group, ball_group
+global paddle, block_image, block, ball_group
 
-    pygame.init()
-    screen = pygame.display.set_mode((800,600))
-    pygame.display.set_caption("Block Breaker Game")
-    font = pygame.font.Font(None, 36)
-    pygame.mouse.set_visible(False)
-    timer = pygame.time.Clock()
+pygame.init()
+screen = pygame.display.set_mode((800,600))
+pygame.display.set_caption("Block Breaker Game")
+font = pygame.font.Font(None, 36)
+pygame.mouse.set_visible(False)
+pygame.event.set_grab(True)
 
-    #create sprite gorups
-    paddle_group = pygame.sprite.Group()
-    block_group = pygame.sprite.Group()
-    ball_group = pygame.sprite.Group()
-    
-    #create the paddle sprite
-    paddle = MySprite()
-    paddle.load("paddle.png")
-    paddle.position = 400,540
-    paddle_group.add(paddle)
+timer = pygame.time.Clock()
 
-    #create ball sprite
-    ball = MySprite()
-    ball.load("ball.png")
-    ball.position = 400, 300
-    ball_group.add(ball)
+#create sprite gorups
+paddle_group = pygame.sprite.Group()
+block_group = pygame.sprite.Group()
+ball_group = pygame.sprite.Group()
+
+#create the paddle sprite
+paddle = MySprite()
+paddle.load("paddle.png")
+paddle.position = 400,540
+paddle_group.add(paddle)
+
+#create ball sprite
+ball = MySprite()
+ball.load("ball.png")
+ball.position = 400, 300
+ball_group.add(ball)
 
 
 
@@ -88,13 +110,16 @@ def move_paddle():
     else:
         if movex < -2:
             paddle.velocity.x = movex
+            print("movex < -2")
         elif movex > 2:
             paddle.velocity.x = movex
+            print("movex > 2")
+
         else:
             paddle.velocity.x = 0
 
     paddle.X += paddle.velocity.x
-    if paddleX < 0:
+    if paddle.X < 0:
         paddle.X = 0
     elif paddle.X > 710:
         paddle.X = 710
@@ -108,7 +133,7 @@ def reset_ball():
 
 # this function moves the ball
 def move_ball():
-    global waiting, ball, game_over, liv
+    global waiting, ball, game_over, lives
     #move the ball
     ball_group.update(ticks, 50)
     if waiting:
@@ -158,7 +183,7 @@ def collision_ball_blocks():
         by = ball.Y + 8
 
         #hit middle of block from above or below?
-        if bx > hit_block.X+5 and bx < block.X + hit_block.frame+width-5:
+        if bx > hit_block.X+5 and bx < hit_block.X + hit_block.frame_width-5:
             if by < hit_block.Y + hit_block.frame_height/2: # above?
                 ball.velocity.y = -abs(ball.velocity.y)
             else: # belo2w?
@@ -169,7 +194,7 @@ def collision_ball_blocks():
             ball.velocity.x = -abs(ball.velocity.x)
 
         # hit right side of block?
-        elif bx > hit_block.X + hitblock.frame_width - 5:
+        elif bx > hit_block.X + hit_block.frame_width - 5:
             ball.velocity.x = abs(ball.velocity.x)
 
         #handle any other situation
@@ -179,7 +204,7 @@ def collision_ball_blocks():
 
 
 # MAIN CODE 
-game_init()
+# game_init()
 game_over = False
 waiting= True
 score = 0
@@ -187,11 +212,10 @@ lives = 3
 level = 0
 load_level()
 
-
-
+movex, movey = 0,0
 
 while True:
-    timer.tick(40)
+    timer.tick(50)
     ticks=pygame.time.get_ticks()
 
     
@@ -199,6 +223,7 @@ while True:
         if event.type == QUIT: sys.exit()
 
         elif event.type == MOUSEMOTION:
+            print(str(event.rel))
             movex, movey = event.rel
 
         elif event.type == MOUSEBUTTONUP:
@@ -211,7 +236,7 @@ while True:
                 goto_next_level()
 
     #handle key presses
-    keys = pyhame.key.get_pressed()
+    keys = pygame.key.get_pressed()
     if keys[K_ESCAPE]:
         sys.exit()
 
@@ -229,7 +254,6 @@ while True:
 
     block_group.draw(screen)
     ball_group.draw(screen)
-    ball.draw(screen)
     paddle_group.draw(screen)
     print_text(font, 0, 0, "SCORE " + str(score))
     print_text(font, 200, 0, "LEVEL " + str(level + 1))

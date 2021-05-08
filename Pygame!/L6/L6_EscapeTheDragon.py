@@ -229,7 +229,7 @@ while not done:
         game_over = True
 
     #did the dragon get defeated?
-    if dragon.X < -200:
+    if dragon.X < -203:
         you_win = True
         game_over = True
 
