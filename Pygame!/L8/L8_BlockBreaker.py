@@ -3,21 +3,23 @@ import sys, time, random, math, pygame
 from pygame.locals import *
 from MyLibrary import *
 
-# this function increments the levels
 
+# this function increments the levels
 def goto_next_level():
     global level, levels
-     level += 1
-     if level > len(levels)-1: level = 0
-     load_level()
+    level += 1
+    if level > len(levels)-1: level = 0
+    load_level()
+
 
 #this function update the blocks in play
-def update_blocks9):
+def update_blocks():
     global block_group, waiting
     if len(block_group) == 0: #all blocks gone?
         goto_next_level()
         waiting = True
     block_group.update(ticks, 50)
+
 
 #this function sets up the blocks for the level
 def load_level():
@@ -31,12 +33,15 @@ def load_level():
             x = 40 + bx * (block.frame_width+1)
             y = 60 + by * (block.frame_height+1)
             block.position = x,y
+
             #read blocks from level data
-            num = levels[level][by*12+bx]
+            num = level[level][by*12+bx]
             block.first_frame = num-1
             block.last_frame = num-1
             if num > 0: #0 is blank
                 block_group.add(block)
+
+
 
 def game_init():
     global screen, font, timer
@@ -52,7 +57,7 @@ def game_init():
 
     #create sprite gorups
     paddle_group = pygame.sprite.Group()
-    blocks group = pygame.sprite.Group()
+    block_group = pygame.sprite.Group()
     ball_group = pygame.sprite.Group()
     
     #create the paddle sprite
@@ -66,6 +71,8 @@ def game_init():
     ball.load("ball.png")
     ball.position = 400, 300
     ball_group.add(ball)
+
+
 
 def move_paddle():
     global movex, movey, keys, waiting
@@ -92,8 +99,11 @@ def move_paddle():
     elif paddle.X > 710:
         paddle.X = 710
 
+
+
 def reset_ball():
     ball.velocity = Point(4.5, - 7.0)
+
 
 
 # this function moves the ball
@@ -104,8 +114,131 @@ def move_ball():
     if waiting:
         ball.X = paddle.X + 40
         ball.Y = paddle.Y - 20
-        ball.X < 0:
-        ball.X = 0:
+    ball.X += ball.velocity.x
+    ball.Y += ball.velocity.y
+    if ball.X < 0:
+        ball.X = 0
+        ball.velocity.x *= -1
+    elif ball.X > 780:
+        ball.X = 780
+        ball.velocity.x *= -1
+    if ball.Y < 0:
+        ball.Y = 0
+        ball.velocity.y *= -1
+    elif ball.Y > 580: # missed paddle
+        waiting = True
+        lives -= 1
+        if lives < 1:
+            game_over = True
+    
+
+
+# this function test for collision between ball and paddle
+def collision_ball_paddle():
+    if pygame.sprite.collide_rect(ball, paddle):
+        ball.velocity.y = -abs(ball.velocity.y) # abs() is absolute value of number in ()
+        bx = ball.X + 8
+        by = ball.Y + 8
+        px = paddle.X + paddle.frame_width/2
+        py = paddle.Y +paddle.frame_height/2
+        if bx < px: # left side of paddle?
+            ball.velocity.x = -abs(ball.velocity.x)
+        else: #right side of paddle?
+            ball.velocity.x = abs(ball.velocity.x)
+
+
+
+def collision_ball_blocks():
+    global score, block_group, ball
+    hit_block = pygame.sprite.spritecollideany(ball, block_group)
+    if hit_block != None:
+        score+= 10
+        block_group.remove(hit_block)
+        bx = ball.X + 8
+        by = ball.Y + 8
+
+        #hit middle of block from above or below?
+        if bx > hit_block.X+5 and bx < block.X + hit_block.frame+width-5:
+            if by < hit_block.Y + hit_block.frame_height/2: # above?
+                ball.velocity.y = -abs(ball.velocity.y)
+            else: # belo2w?
+                ball.velocity.y = abs(ball.velocity.y)
+
+        # hit left side of block?
+        elif bx < hit_block.X + 5:
+            ball.velocity.x = -abs(ball.velocity.x)
+
+        # hit right side of block?
+        elif bx > hit_block.X + hitblock.frame_width - 5:
+            ball.velocity.x = abs(ball.velocity.x)
+
+        #handle any other situation
+        else:
+            ball.velocity.y *= -1
+
+
+
+# MAIN CODE 
+game_init()
+game_over = False
+waiting= True
+score = 0
+lives = 3
+level = 0
+load_level()
+
+
+
+
+while True:
+    timer.tick(40)
+    ticks=pygame.time.get_ticks()
+
+    
+    for event in pygame.event.get():
+        if event.type == QUIT: sys.exit()
+
+        elif event.type == MOUSEMOTION:
+            movex, movey = event.rel
+
+        elif event.type == MOUSEBUTTONUP:
+            if waiting:
+                waiting = False
+                reset_ball()
+
+        elif event.type == KEYUP:
+            if event.key == K_RETURN:
+                goto_next_level()
+
+    #handle key presses
+    keys = pyhame.key.get_pressed()
+    if keys[K_ESCAPE]:
+        sys.exit()
+
+
+    #do updates
+    if not game_over:
+        update_blocks()
+        move_paddle()
+        move_ball()
+        collision_ball_paddle()
+        collision_ball_blocks()
+
+    #drawing
+    screen.fill((50,50,100))
+
+    block_group.draw(screen)
+    ball_group.draw(screen)
+    ball.draw(screen)
+    paddle_group.draw(screen)
+    print_text(font, 0, 0, "SCORE " + str(score))
+    print_text(font, 200, 0, "LEVEL " + str(level + 1))
+    print_text(font, 400, 0, "BLOCKS " + str(len(block_group)))
+    print_text(font, 670, 0, "BALLS " +str(lives))
+    if game_over:
+        print_text(font, 300, 380, "G A M E  O V E R")
+
+    pygame.display.update()
 
 
 

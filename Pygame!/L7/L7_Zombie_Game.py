@@ -85,7 +85,7 @@ USEREVENT = 0
 
 testf = USEREVENT + 1
 
-pygame.time.set_timer(testf, 100)
+pygame.time.set_timer(testf, 10000)
 
 #repeating loop
 while True:
@@ -179,7 +179,7 @@ while True:
         if attacker != None:
             #we got a hit, now do a more precise check
             if pygame.sprite.collide_rect_ratio(0.5)(player, attacker):
-                player_health -= .5
+                player_health -= 5
                 if attacker.X < player.X:
                     attacker.X -= 10
                 elif attacker.X > player.X:
@@ -195,6 +195,7 @@ while True:
 
             if attacker != None:
                 #we got a hit, now do a more precise check
+
                 if pygame.sprite.collide_rect_ratio(.5)(i, attacker):
                     if attacker.X < i.X:
                         attacker.X -= 10
