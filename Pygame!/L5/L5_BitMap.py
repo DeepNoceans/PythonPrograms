@@ -74,6 +74,8 @@ vel = .01
 white = 255, 255, 255
 # myfont = pygame.font.Font(None, 20)
 textImage = font.render(f"Orbiral Circumference: {cir}", True, white)
+textImage2 = font.render(f"Angle: {angle}", True, white)
+textImage3 = font.render(f"Pos: ({pos.x},{pos.y})", True, white)
 
 width, height = ship.get_size()
 screen.blit(ship, (400 + pos.x-width // 2, 300 + pos.y-height // 2))
@@ -108,9 +110,18 @@ while True:
     pos.y = math.cos(math.radians(angle)) * radius
 
     #draw background
+    textImage = font.render(f"Orbiral Circumference: {cir}", True, white)
+    angle2 = "{:.00f}".format(angle)
+    textImage2 = font.render(f"Angle: {angle2}", True, white)
+    # pos.x = "{:.002f}".format(pos.x)
+    # pos.y = "{:.002f}".format(pos.y)
+    posx = "{:.00f}".format(pos.x)
+    posy = "{:.00f}".format(pos.y)
+    textImage3 = font.render(f"Pos: ({posx},{posy})", True, white)
     screen.blit(space, (0, 0))
-
-    screen.blit(textImage, (0, 0))
+    screen.blit(textImage, (0,0))
+    screen.blit(textImage2, (0, 30))
+    screen.blit(textImage3, (0, 60))
 
     screen.blit(planet, (400-width_p/2, 300-height_p/2))
 

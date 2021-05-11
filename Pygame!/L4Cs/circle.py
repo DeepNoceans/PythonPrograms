@@ -36,7 +36,7 @@ while True:
 
     #increment angle
 
-    angle += 360
+    angle += 1
 
     if angle >= 360:
 
@@ -60,4 +60,7 @@ while True:
     pos = int(pos_x + x), int(pos_y + y)
     pygame.draw.circle(screen, color, pos, wide, 0)
 
+    pos = int(pos_x +x-50), int(pos_y +y-50), 100, 100
+
+    pygame.draw.rect(screen, color, pos, 0)
     pygame.display.update()

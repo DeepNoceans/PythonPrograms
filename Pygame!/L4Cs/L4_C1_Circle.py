@@ -65,10 +65,11 @@ while True:
     y = math.sin( math.radians (angle)) * radius
 
     #draw one step around the circle
-    pos = (int(pos_x + x), int(pos_y + y)), (int(pos_x + x)+200,
-                                     int(pos_y + y)-320), (int(pos_x + x)-40, int(pos_y + y)-40), (int(pos_x + x)+400, int(pos_y + y)+300), (int(pos_x + x)-500, int(pos_y + y)-100)
+    # pos = (int(pos_x + x), int(pos_y + y)), (int(pos_x + x)+200,
+    #                                  int(pos_y + y)-320), (int(pos_x + x)-40, int(pos_y + y)-40), (int(pos_x + x)+400, int(pos_y + y)+300), (int(pos_x + x)-500, int(pos_y + y)-100)
 
-    pygame.draw.polygon(screen,color,pos, 1)
+    pos = pos_x +x-200, pos_y+y-200, pos_x +5+x, pos_y +5+y
+    pygame.draw.rect(screen,color,pos, 0)
     # pygame.draw.circle(screen, color, pos, wide, 0)
 
     pygame.display.update()
