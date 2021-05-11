@@ -110,7 +110,7 @@ while True:
     pos.y = math.cos(math.radians(angle)) * radius
 
     #draw background
-    textImage = font.render(f"Orbiral Circumference: {cir}", True, white)
+    textImage = font.render(f"Orbital Circumference: {cir}", True, white)
     angle2 = "{:.00f}".format(angle)
     textImage2 = font.render(f"Angle: {angle2}", True, white)
     # pos.x = "{:.002f}".format(pos.x)
