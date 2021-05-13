@@ -4,37 +4,39 @@ from pygame.locals import *
 from MyLibrary import *
 levels = (0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0,
           0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0,
-          0, 4, 4, 0, 0, 4, 4, 0, 0, 4, 4, 0,
-          0, 4, 4, 0, 0, 4, 4, 0, 0, 4, 4, 0,
-          0, 4, 4, 4, 4, 0, 0, 4, 4, 4, 4, 0,
-          0, 4, 4, 4, 4, 0, 0, 4, 4, 4, 4, 0,
-          0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 4, 0,
-          0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 4, 0,
-          0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 4, 0,
-          0, 4, 4, 0, 4, 4, 4, 4, 0, 4, 4, 0,
-          0, 4, 4, 0, 4, 4, 4, 4, 0, 4, 4, 0,
+          0, 4, 4, 8, 8, 4, 4, 8, 8, 4, 4, 0,
+          0, 4, 4, 8, 8, 4, 4, 8, 8, 4, 4, 0,
+          0, 4, 4, 4, 4, 8, 8, 4, 4, 4, 4, 0,
+          0, 4, 4, 4, 4, 8, 8, 4, 4, 4, 4, 0,
+          0, 4, 4, 8, 8, 8, 8, 8, 8, 4, 4, 0,
+          0, 4, 4, 8, 8, 8, 8, 8, 8, 4, 4, 0,
+          0, 4, 4, 8, 8, 8, 8, 8, 8, 4, 4, 0,
+          0, 4, 4, 8, 4, 4, 4, 4, 8, 4, 4, 0,
+          0, 4, 4, 8, 4, 4, 4, 4, 8, 4, 4, 0,
           0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0,
           0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0), (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-                                            2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
-                                            2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
-                                            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-                                            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-                                            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-                                            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-                                            2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
-                                            2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
-                                            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2), (3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-                                                                                    3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
-                                                                                    3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
-                                                                                    3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
-                                                                                    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-                                                                                    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-                                                                                    3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
-                                                                                    3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
-                                                                                    3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
-                                                                                    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)
-          
-
+                                                2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
+                                                2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
+                                                2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                                                2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                                                2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                                                2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                                                2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
+                                                2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2,
+                                                2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                                                                                      3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                                                      3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                                                      3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                                                      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                                                                                      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                                                                                      3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                                                      3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                                                      3, 3, 0, 0, 0, 3, 3, 0, 0, 0, 3, 3,
+                                                                                      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                                                                                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                                                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 # this function increments the levels
 def goto_next_level():
     global level, levels
@@ -55,7 +57,12 @@ def update_blocks():
 #this function sets up the blocks for the level
 def load_level():
     global level, levels, block_image, block_group
-    block_image = pygame.image.load("blocks.png").convert_alpha()
+    block_image = pygame.image.load("blocks3.png").convert_alpha()
+
+    #Challenge 2
+    # block2_image = pygame.image.load("blocks3.png").convert_alpha()
+
+ 
     block_group.empty() #reset block group
     for bx in range(0,12):
         for by in range(0,12):
@@ -158,9 +165,9 @@ def move_ball():
         ball.Y = paddle.Y - 10
 
         # Challenge 3
-        vel_x = random.randint(2, 20)
-        vel_y = random.randint(-14, -3)
-        ball.velocity = Point(vel_x, vel_y)
+        # vel_x = random.randint(2, 20)
+        # vel_y = random.randint(-14, -3)
+        # ball.velocity = Point(vel_x, vel_y)
    
     ball.X += ball.velocity.x
     ball.Y += ball.velocity.y
@@ -184,6 +191,11 @@ def move_ball():
 # this function test for collision between ball and paddle
 def collision_ball_paddle():
     if pygame.sprite.collide_rect(ball, paddle):
+
+        vel_x = random.randint(1, 8)
+        vel_y = random.randint(-8, -1)
+        ball.velocity = Point(vel_x, vel_y)
+
         ball.velocity.y = -abs(ball.velocity.y) # abs() is absolute value of number in ()
         bx = ball.X + 8
         by = ball.Y + 8
