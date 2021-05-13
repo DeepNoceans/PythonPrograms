@@ -10,6 +10,7 @@ levels = (0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0,
           0, 4, 4, 4, 4, 0, 0, 4, 4, 4, 4, 0,
           0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 4, 0,
           0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 4, 0,
+          0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 4, 0,
           0, 4, 4, 0, 4, 4, 4, 4, 0, 4, 4, 0,
           0, 4, 4, 0, 4, 4, 4, 4, 0, 4, 4, 0,
           0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0,
@@ -57,7 +58,7 @@ def load_level():
     block_image = pygame.image.load("blocks.png").convert_alpha()
     block_group.empty() #reset block group
     for bx in range(0,12):
-        for by in range(0,10):
+        for by in range(0,12):
             block = MySprite()
             block.set_image(block_image, 58,28,4)
             x = 40 + bx * (block.frame_width+1)
@@ -137,7 +138,13 @@ def move_paddle():
 
 
 def reset_ball():
-    ball.velocity = Point(4.5, - 7.0)
+    # ball.velocity = Point(4.5, - 7.0)
+
+
+    # Challenge 3
+    vel_x = random.randint(2, 10)
+    vel_y = random.randint(-14, -3)
+    ball.velocity = Point(vel_x, vel_y)
 
 
 
@@ -147,8 +154,14 @@ def move_ball():
     #move the ball
     ball_group.update(ticks, 50)
     if waiting:
-        ball.X = paddle.X + 40
-        ball.Y = paddle.Y - 20
+        ball.X = paddle.X + 37
+        ball.Y = paddle.Y - 10
+
+        # Challenge 3
+        vel_x = random.randint(2, 20)
+        vel_y = random.randint(-14, -3)
+        ball.velocity = Point(vel_x, vel_y)
+   
     ball.X += ball.velocity.x
     ball.Y += ball.velocity.y
     if ball.X < 0:
@@ -201,6 +214,7 @@ def collision_ball_blocks():
 
         # hit left side of block?
         elif bx < hit_block.X + 5:
+            
             ball.velocity.x = -abs(ball.velocity.x)
 
         # hit right side of block?
@@ -224,8 +238,17 @@ load_level()
 
 movex, movey = 0,0
 
+
+counter = 0
+
+screenR = 0
+screenG = 0
+screenB = 100
+RGBcycle = 3
+
+
 while True:
-    timer.tick(50)
+    timer.tick(60)
     ticks=pygame.time.get_ticks()
 
     
@@ -260,7 +283,44 @@ while True:
         collision_ball_blocks()
 
     #drawing
-    screen.fill((50,50,100))
+    screen.fill((screenR, screenG, screenB))
+
+    counter += 1
+
+    if counter == 2:
+        counter = 0
+        if RGBcycle == 1:
+            screenR += 1
+            screenG -= 1
+            screenB -= 1
+
+        elif RGBcycle == 2:
+            screenR -= 1
+            screenG += 1
+            screenB -= 1
+
+        elif RGBcycle == 3:
+            screenR -= 1
+            screenG -= 1
+            screenB += 1
+
+        if screenR == 254 or screenG == 254 or screenB == 254:
+            RGBcycle += 1
+            if RGBcycle == 4:
+                RGBcycle = 1
+
+        if screenR <= 50:
+            screenR += 1
+
+        if screenG <= 50:
+            screenG += 1
+
+        if screenB <= 50:
+            screenB += 1
+
+
+
+
 
     block_group.draw(screen)
     ball_group.draw(screen)
@@ -270,7 +330,7 @@ while True:
     print_text(font, 400, 0, "BLOCKS " + str(len(block_group)))
     print_text(font, 670, 0, "BALLS " +str(lives))
     if game_over:
-        print_text(font, 300, 380, "G A M E  O V E R")
+        print_text(font, 270, 440, "G A M E  O V E R")
 
     pygame.display.update()
 

@@ -15,8 +15,8 @@ pygame.display.set_caption("DVD Bounce")
 
 pos_x = 250
 pos_y = 218.75
-vel_x = 2
-vel_y = 2
+vel_x = .1
+vel_y = .1
 color = 255, 255, 0
 
 counter = 0
