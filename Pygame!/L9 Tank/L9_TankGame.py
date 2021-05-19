@@ -189,8 +189,7 @@ enemy_score = 0
 last_time = 0
 mouse_x = mouse_y = 0
 
-rotation_goal = 270
-
+rotation_goal = 135
 USEREVENT = 0
 
 testf = USEREVENT + 1
@@ -231,21 +230,14 @@ while True:
             mouse_up = event.button
             mouse_up_x, mouse_up_y = event.pos
         if event.type == testf:
-            # rotation_goal = random.randint(1, 360)
-            # rotation_goal = 
-            pass
+            rotation_goal = random.randint(1, 360)
 
-    if enemy_tank.rotation != rotation_goal:
-        if enemy_tank.rotation > rotation_goal:
-            enemy_tank.rotation -= 1
-        elif enemy_tank.rotation < rotation_goal:
-            enemy_tank.rotation += 1
-    
-    player_x, player_y = player.float_pos
-    
-    enemy_x, enemy_y = enemy_tank.float_pos
+    if rotation_goal != enemy_tank.rotation:
+        if rotation_goal < enemy_tank.rotation:
+            enemy_tank.rotation -= 2
+        elif rotation_goal > enemy_tank.rotation:
+            enemy_tank.rotation += 2
 
-    enemy_x / enemy_y + enem
     #get key states
     keys = pygame.key.get_pressed()
     if keys[K_ESCAPE]:
