@@ -99,6 +99,7 @@ class Tank(MySprite):
         self.turret.scratch = pygame.transform.rotate(
             self.turret.image, -angle)
 
+   
     def draw(self, surface):
         #draw the chassis
         width, height = self.scratch.get_size()
@@ -188,6 +189,7 @@ enemy_score = 0
 last_time = 0
 mouse_x = mouse_y = 0
 
+rotation_goal = 270
 
 USEREVENT = 0
 
@@ -205,6 +207,16 @@ while True:
     mouse_up_x = mouse_up_y = 0
     mouse_down_x = mouse_down_y = 0
 
+    # rotation_goal = pygame.math.Vector2().angle_to(
+    #     player.float_pos - enemy_tank.float_pos)
+
+
+
+
+
+
+
+
     #event section
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -219,9 +231,21 @@ while True:
             mouse_up = event.button
             mouse_up_x, mouse_up_y = event.pos
         if event.type == testf:
-            enemy_tank.rotation = random.randint(1, 360)
+            # rotation_goal = random.randint(1, 360)
+            # rotation_goal = 
+            pass
 
+    if enemy_tank.rotation != rotation_goal:
+        if enemy_tank.rotation > rotation_goal:
+            enemy_tank.rotation -= 1
+        elif enemy_tank.rotation < rotation_goal:
+            enemy_tank.rotation += 1
+    
+    player_x, player_y = player.float_pos
+    
+    enemy_x, enemy_y = enemy_tank.float_pos
 
+    enemy_x / enemy_y + enem
     #get key states
     keys = pygame.key.get_pressed()
     if keys[K_ESCAPE]:
@@ -251,6 +275,8 @@ while True:
                              crosshair.X + crosshair.frame_width/2,
                              crosshair.Y + crosshair.frame_height/2)
         player.turret.rotation = angle
+
+        
 
 
 
