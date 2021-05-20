@@ -15,7 +15,7 @@ class Bullet():
         self.alive = True
         self.color = (250, 20, 20)
         self.position = Point(position.x, position.y)
-        self.velocity = Point(0, 0)
+        self.velocity = Point(1, 1)
         self.rect = Rect(0, 0, 4, 4)
         self.owner = ""
 
@@ -150,12 +150,12 @@ def game_init():
     #create player tank
     player = Tank()
     player.float_pos = Point(400, 300)
-
+    
     #create enemy tanks
     enemy_tank = EnemyTank()
     enemy_tank.float_pos = Point(random.randint(50, 760), 50)
     enemy_tank.rotation = 135
-
+    
     #create bullets
     bullets = list()
 
@@ -207,10 +207,33 @@ while True:
     mouse_down_x = mouse_down_y = 0
 
     # rotation_goal = pygame.math.Vector2().angle_to(
-    #     player.float_pos - enemy_tank.float_pos)
+    #     player.float_pos - player.float_pos)
+
+
+    # ui
 
 
 
+
+
+
+    # angleA_X, angleA_Y = player.X, player.Y
+    # angleB_X, angleB_Y = enemy_tank.X, enemy_tank.Y
+
+    # deltaX = angleB_X - angleA_X
+    # deltaY = angleB_Y - angleA_Y
+
+    # print(deltaX, "\n", deltaY)
+    # tan = deltaX/deltaY
+
+    # formula = math.atan(tan)
+
+    # formula = formula ** 2
+    # formula = math.sqrt(formula)
+
+    # formula = math.degrees(formula)
+
+    # rotation_goal = formula
 
 
 
