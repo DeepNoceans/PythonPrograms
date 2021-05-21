@@ -68,13 +68,14 @@ class Tank(MySprite):
 
     def update(self, ticks):
         #update chassis
+       
         MySprite.update(self, ticks, 100)
         self.rotation = wrap_angle(self.rotation)
         self.scratch = pygame.transform.rotate(self.image, -self.rotation)
         angle = wrap_angle(self.rotation-90)
         self.velocity = angular_velocity(angle)
-        self.float_pos.x += self.velocity.x
-        self.float_pos.y += self.velocity.y
+        self.float_pos.x += self.velocity.x #* speed
+        self.float_pos.y += self.velocity.y #* speed
 
         #warp tank around screen edges (keep it simple)
         if self.float_pos.x < -50:
@@ -198,6 +199,7 @@ pygame.time.set_timer(testf, 2000)
 
 #main loop
 while True:
+    keys = pygame.key.get_pressed()
     timer.tick(80)
     ticks = pygame.time.get_ticks()
 
@@ -217,26 +219,6 @@ while True:
 
 
 
-    # angleA_X, angleA_Y = player.X, player.Y
-    # angleB_X, angleB_Y = enemy_tank.X, enemy_tank.Y
-
-    # deltaX = angleB_X - angleA_X
-    # deltaY = angleB_Y - angleA_Y
-
-    # print(deltaX, "\n", deltaY)
-    # tan = deltaX/deltaY
-
-    # formula = math.atan(tan)
-
-    # formula = formula ** 2
-    # formula = math.sqrt(formula)
-
-    # formula = math.degrees(formula)
-
-    # rotation_goal = formula
-
-
-
 
 
     #event section
@@ -252,8 +234,31 @@ while True:
         elif event.type == MOUSEBUTTONUP:
             mouse_up = event.button
             mouse_up_x, mouse_up_y = event.pos
-        if event.type == testf:
-            rotation_goal = random.randint(1, 360)
+
+
+        
+        if keys[K_ESCAPE]:
+            sys.exit()
+
+        if keys[K_1]:
+            player.X = 50
+            player.Y = 50
+
+        elif keys[K_2]:
+            player.X = 750
+            player.Y = 50
+
+        elif keys[K_3]:
+            player.X = 50
+            player.Y = 550
+
+        elif keys[K_4]:
+            player.X = 750
+            player.Y = 550
+
+            
+        # if event.type == testf:
+        #     rotation_goal = random.randint(1, 360)
 
     if rotation_goal != enemy_tank.rotation:
         if rotation_goal < enemy_tank.rotation:
@@ -317,6 +322,53 @@ while True:
                     enemy_score += 1
                     bullet.alive = False
                     play_sound(boom_sound)
+
+    if player.X == 0:
+        player.X = 1
+    if player.Y == 0:
+        player.Y = 1
+    if enemy_tank.X == 0:
+       enemy_tank.X = 1 
+    if enemy_tank.Y == 0:
+        enemy_tank.Y = 1
+    angleA_X, angleA_Y = player.X, player.Y
+    angleB_X, angleB_Y = enemy_tank.X, enemy_tank.Y
+
+
+    deltaX = angleB_X - angleA_X
+    deltaY = angleB_Y - angleA_Y
+    if deltaX == 0:
+        deltaX = 1
+    if deltaY == 0:
+        deltaY = 1
+    # print(deltaX, "                     ", deltaY)
+    tan = deltaX/deltaY
+
+
+    formula = math.atan(tan)
+
+    formula = formula ** 2
+    formula = math.sqrt(formula)
+
+    formula = math.degrees(formula)
+
+    if player.X <= enemy_tank.X and player.Y < enemy_tank.Y:
+        formula += 270
+        print("E E E E E e E E E EE  E E EE E E E E E EE E E E ")
+
+    #Good
+    elif player.X <= enemy_tank.X and player.Y > enemy_tank.Y:
+        formula += 180
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH")
+
+
+    elif player.X >= enemy_tank.X and player.Y > enemy_tank.Y:
+        formula += 90
+        print("1234 1234 1234 1234123 41234 123 123 ")
+
+    rotation_goal = formula
+    print(rotation_goal)
+
 
     #drawing section
     backbuffer.fill((100, 100, 20))

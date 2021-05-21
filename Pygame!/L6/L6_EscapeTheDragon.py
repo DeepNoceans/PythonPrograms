@@ -129,7 +129,7 @@ group.add(player)
 
 #create the arrow sprite
 arrow = MySprite(screen)
-arrow.load("Bill2.png", 26, 16, 1)
+arrow.load("flame.png", 26, 16, 1)
 arrow.position = 1600, 320
 
 arrow2 = MySprite(screen)
@@ -222,7 +222,7 @@ while not done:
     if pygame.sprite.collide_rect(arrow2, dragon):
         reset_arrow2()
         dragon.X -= 10
-        epic_gamer_score_exclusively_for_epic_gamers += 1
+        epic_gamer_score_exclusively_for_epic_gamers += 2
 
     #did dragon eat the player?
     if pygame.sprite.collide_rect(player, dragon):

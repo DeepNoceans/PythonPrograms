@@ -59,7 +59,7 @@ width, height = ship.get_size()
 ship = pygame.transform.scale(ship, (width//3, height//3))
 #repeating loop
 
-
+rotations = 0
 radius = 250
 angle = 0.0
 pos = Point(0, 0)
@@ -112,16 +112,16 @@ while True:
     #draw background
     textImage = font.render(f"Orbital Circumference: {cir}", True, white)
     angle2 = "{:.00f}".format(angle)
-    textImage2 = font.render(f"Angle: {angle2}", True, white)
-    # pos.x = "{:.002f}".format(pos.x)
-    # pos.y = "{:.002f}".format(pos.y)
-    posx = "{:.00f}".format(pos.x)
-    posy = "{:.00f}".format(pos.y)
-    textImage3 = font.render(f"Pos: ({posx},{posy})", True, white)
+    # textImage2 = font.render(f"Angle: {angle2}", True, white)
+    # # pos.x = "{:.002f}".format(pos.x)
+    # # pos.y = "{:.002f}".format(pos.y)
+    # posx = "{:.00f}".format(pos.x)
+    # posy = "{:.00f}".format(pos.y)
+    # textImage3 = font.render(f"Pos: ({posx},{posy})", True, white)
     screen.blit(space, (0, 0))
     screen.blit(textImage, (0,0))
-    screen.blit(textImage2, (0, 30))
-    screen.blit(textImage3, (0, 60))
+    # screen.blit(textImage2, (0, 30))
+    # screen.blit(textImage3, (0, 60))
 
     screen.blit(planet, (400-width_p/2, 300-height_p/2))
 
@@ -130,5 +130,11 @@ while True:
     y = 300+pos.y-height//2
 
     screen.blit(scratch_ship, (x, y))
-
+    print_text(font, 0, 30, "Orbit: " + "{:.0f}".format(angle))
+    print_text(font, 0, 60, "Rotation: " + "{:.2f}".format(rangle))
+    print_text(font, 0, 90,"Position: " + str(pos))
+    print_text(font, 0 ,120, "Old Pos: " + str(old_pos))
+    if "{:.0f}".format(angle) == 359:
+        rotations += 1
+    print_text(font, 0 , 150, "Rotations: " + str(rotations))
     pygame.display.update()
