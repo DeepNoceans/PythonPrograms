@@ -121,7 +121,7 @@ class EnemyTank(Tank):
         Tank.__init__(self, tank_file, turret_file)
 
     def update(self, ticks):
-        self.turret.rotation = wrap_angle(self.rotation-90)
+        
         Tank.update(self, ticks)
 
     def draw(self, surface):
@@ -155,6 +155,7 @@ def game_init():
     #create enemy tanks
     enemy_tank = EnemyTank()
     enemy_tank.float_pos = Point(random.randint(50, 760), 50)
+    enemy_tank.float_pos = Point(410, 300)
     enemy_tank.rotation = 135
     
     #create bullets
@@ -196,6 +197,9 @@ USEREVENT = 0
 testf = USEREVENT + 1
 
 pygame.time.set_timer(testf, 2000)
+
+player_health = 10
+enemy_health = 5
 
 #main loop
 while True:
@@ -259,7 +263,6 @@ while True:
             
         # if event.type == testf:
         #     rotation_goal = random.randint(1, 360)
-
     if rotation_goal != enemy_tank.rotation:
         if rotation_goal < enemy_tank.rotation:
             enemy_tank.rotation -= 2
@@ -294,12 +297,24 @@ while True:
         angle = target_angle(player.turret.X, player.turret.Y,
                              crosshair.X + crosshair.frame_width/2,
                              crosshair.Y + crosshair.frame_height/2)
+        angle = (angle + 360) % 360
+
         player.turret.rotation = angle
 
-        
+        angle = target_angle(enemy_tank.turret.X, enemy_tank.turret.Y,
+                                player.X + crosshair.frame_width/2,
+                                player.Y + crosshair.frame_height/2)
+        angle = (angle + 360) % 360
+
+        enemy_tank.turret.rotation = angle
+
+        angle = (angle + 360) % 360
 
 
-
+        if enemy_tank.turret.rotation > enemy_tank.rotation:
+            rotation_goal += 1
+        if enemy_tank.turret.rotation < enemy_tank.rotation:
+            rotation_goal -= 1
         #move tank
         player.update(ticks)
 
@@ -315,58 +330,60 @@ while True:
             if bullet.owner == "player":
                 if pygame.sprite.collide_rect(bullet, enemy_tank):
                     player_score += 1
+                    enemy_health -= 1
                     bullet.alive = False
                     play_sound(boom_sound)
             elif bullet.owner == "enemy":
                 if pygame.sprite.collide_rect(bullet, player):
                     enemy_score += 1
+                    player_health -= 1
                     bullet.alive = False
                     play_sound(boom_sound)
 
-    if player.X == 0:
-        player.X = 1
-    if player.Y == 0:
-        player.Y = 1
-    if enemy_tank.X == 0:
-       enemy_tank.X = 1 
-    if enemy_tank.Y == 0:
-        enemy_tank.Y = 1
-    angleA_X, angleA_Y = player.X, player.Y
-    angleB_X, angleB_Y = enemy_tank.X, enemy_tank.Y
+    # if player.X == 0:
+    #     player.X = 1
+    # if player.Y == 0:
+    #     player.Y = 1
+    # if enemy_tank.X == 0:
+    #    enemy_tank.X = 1 
+    # if enemy_tank.Y == 0:
+    #     enemy_tank.Y = 1
+    # angleA_X, angleA_Y = player.X, player.Y
+    # angleB_X, angleB_Y = enemy_tank.X, enemy_tank.Y
 
 
-    deltaX = angleB_X - angleA_X
-    deltaY = angleB_Y - angleA_Y
-    if deltaX == 0:
-        deltaX = 1
-    if deltaY == 0:
-        deltaY = 1
-    # print(deltaX, "                     ", deltaY)
-    tan = deltaX/deltaY
+    # deltaX = angleB_X - angleA_X
+    # deltaY = angleB_Y - angleA_Y
+    # if deltaX == 0:
+    #     deltaX = 1
+    # if deltaY == 0:
+    #     deltaY = 1
+    # # print(deltaX, "                     ", deltaY)
+    # tan = deltaX/deltaY
 
 
-    formula = math.atan(tan)
+    # formula = math.atan(tan)
 
-    formula = formula ** 2
-    formula = math.sqrt(formula)
+    # formula = formula ** 2
+    # formula = math.sqrt(formula)
 
-    formula = math.degrees(formula)
+    # # formula = math.degrees(formula)
 
-    if player.X <= enemy_tank.X and player.Y < enemy_tank.Y:
-        formula += 270
-        print("E E E E E e E E E EE  E E EE E E E E E EE E E E ")
+    # if player.X <= enemy_tank.X and player.Y < enemy_tank.Y:
+    #     formula += 270
+    #     print("E E E E E e E E E EE  E E EE E E E E E EE E E E ")
 
-    #Good
-    elif player.X <= enemy_tank.X and player.Y > enemy_tank.Y:
-        formula += 180
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH")
+    # #Good
+    # elif player.X <= enemy_tank.X and player.Y > enemy_tank.Y:
+    #     formula += 180
+    #     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH")
 
 
-    elif player.X >= enemy_tank.X and player.Y > enemy_tank.Y:
-        formula += 90
-        print("1234 1234 1234 1234123 41234 123 123 ")
+    # elif player.X >= enemy_tank.X and player.Y > enemy_tank.Y:
+    #     formula += 90
+    #     print("1234 1234 1234 1234123 41234 123 123 ")
 
-    rotation_goal = formula
+    # rotation_goal = formula
     print(rotation_goal)
 
 
@@ -384,9 +401,15 @@ while True:
 
     screen.blit(backbuffer, (0, 0))
 
+    pygame.draw.rect(screen, (50, 150, 50, 180), Rect(10, 570, player_health*20, 25))
+    pygame.draw.rect(screen, (100, 200, 100, 180), Rect(10, 570, 200, 25), 2)
+
+    pygame.draw.rect(screen, (50, 150, 50, 180), Rect(590, 570, enemy_health*40, 25))
+    pygame.draw.rect(screen, (100, 200, 100, 180), Rect(590, 570, 200, 25), 2)
+
     if not game_over:
-        print_text(font, 0, 0, "PLAYER " + str(player_score))
-        print_text(font, 700, 0, "ENEMY " + str(enemy_score))
+        print_text(font, 200, 0, "PLAYER " + str(player_score))
+        print_text(font, 500, 0, "ENEMY " + str(enemy_score))
     else:
         print_text(font, 0, 0, "GAME OVER")
 
