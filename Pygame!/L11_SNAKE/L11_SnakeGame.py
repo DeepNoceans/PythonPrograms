@@ -18,13 +18,15 @@ class Food(MySprite):
         self.Y = random.randint(0,17) * 32
         
 class SnakeSegment(MySprite):
-    def __init__(self, color= (random.randint(0, 140), random.randint(100, 230), random.randint(0, 140))):
+    def __init__(self, color = (255,255,255)):
         MySprite.__init__(self)
         image = pygame.Surface((32,32)).convert_alpha()
         image.fill((255,255,255,0))
         pygame.draw.circle(image, seg_color, (16,16), 16, 0)
         self.set_image(image)
         MySprite.update(self, 0, 30) #create frame image
+
+
 
 class Snake():
     def __init__(self):
@@ -123,9 +125,8 @@ def game_init():
     pygame.display.set_caption("Snake Game")
     font = pygame.font.Font(None, 30)
     timer = pygame.time.Clock()
-    seg_color = (random.randint(0, 140), random.randint(
-        100, 230), random.randint(0, 140))
-
+    seg_color = (random.randint(200, 230), random.randint(40, 40), random.randint(0, 40))
+    brown ()
     #create a drawing surface
     backbuffer = pygame.Surface((screen.get_rect().width,screen.get_rect().height))
 
@@ -209,7 +210,7 @@ while True:
         #additional code added
         if auto_play: auto_move()
     
-
+    
     #drawing section
     backbuffer.fill((20,50,20)) 
     snake.draw(backbuffer)

@@ -122,7 +122,7 @@ while True:
     if keys[K_ESCAPE]:
         sys.exit()
 
-    if num_oils >= 5:
+    if num_oils >= 50:
         game_over = True
     if not game_over:
         #get mouse input
