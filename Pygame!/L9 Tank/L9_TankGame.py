@@ -190,13 +190,14 @@ player_score = 0
 enemy_score = 0
 last_time = 0
 mouse_x = mouse_y = 0
-
+player_dead = False
+enemy_dead = False
 rotation_goal = 135
 USEREVENT = 0
 
 testf = USEREVENT + 1
 
-pygame.time.set_timer(testf, 2000)
+pygame.time.set_timer(testf, 500)
 
 player_health = 10
 enemy_health = 5
@@ -238,47 +239,50 @@ while True:
         elif event.type == MOUSEBUTTONUP:
             mouse_up = event.button
             mouse_up_x, mouse_up_y = event.pos
+        # if event.type == testf:
+        #     print(rotation_goal)
 
 
         
-        if keys[K_ESCAPE]:
-            sys.exit()
+    if keys[K_ESCAPE]:
+        sys.exit()
+    if keys[K_e]:
+        player.float_pos = Point(stayX, stayY)
+    if keys[K_1]:
+        player.X = 50
+        player.Y = 50
 
-        if keys[K_1]:
-            player.X = 50
-            player.Y = 50
+    elif keys[K_2]:
+        player.X = 750
+        player.Y = 50
 
-        elif keys[K_2]:
-            player.X = 750
-            player.Y = 50
+    elif keys[K_3]:
+        player.X = 50
+        player.Y = 550
 
-        elif keys[K_3]:
-            player.X = 50
-            player.Y = 550
-
-        elif keys[K_4]:
-            player.X = 750
-            player.Y = 550
+    elif keys[K_4]:
+        player.X = 750
+        player.Y = 550
 
             
         # if event.type == testf:
         #     rotation_goal = random.randint(1, 360)
     if rotation_goal != enemy_tank.rotation:
         if rotation_goal < enemy_tank.rotation:
-            enemy_tank.rotation -= 2
+            enemy_tank.rotation -= 3
         elif rotation_goal > enemy_tank.rotation:
-            enemy_tank.rotation += 2
+            enemy_tank.rotation += 3
 
     #get key states
     keys = pygame.key.get_pressed()
     if keys[K_ESCAPE]:
         sys.exit()
 
-    elif keys[K_LEFT] or keys[K_a]:
+    elif keys[K_LEFT] or keys[K_a] or keys[K_s]:
         #calculate new direction velocity
         player.rotation -= 2.0
 
-    elif keys[K_RIGHT] or keys[K_d]:
+    elif keys[K_RIGHT] or keys[K_d] or keys[K_f]:
         #calculate new direction velocity
         player.rotation += 2.0
 
@@ -299,6 +303,7 @@ while True:
                              crosshair.Y + crosshair.frame_height/2)
         angle = (angle + 360) % 360
 
+
         player.turret.rotation = angle
 
         angle = target_angle(enemy_tank.turret.X, enemy_tank.turret.Y,
@@ -306,15 +311,17 @@ while True:
                                 player.Y + crosshair.frame_height/2)
         angle = (angle + 360) % 360
 
+        
         enemy_tank.turret.rotation = angle
 
         angle = (angle + 360) % 360
 
-
-        if enemy_tank.turret.rotation > enemy_tank.rotation:
-            rotation_goal += 1
-        if enemy_tank.turret.rotation < enemy_tank.rotation:
-            rotation_goal -= 1
+        
+        
+        if enemy_tank.turret.rotation > rotation_goal:
+            rotation_goal += 4
+        if enemy_tank.turret.rotation < rotation_goal:
+            rotation_goal -= 4
         #move tank
         player.update(ticks)
 
@@ -339,6 +346,16 @@ while True:
                     player_health -= 1
                     bullet.alive = False
                     play_sound(boom_sound)
+
+    if player_health == 0:
+        player_health = 10
+        player.float_pos = Point(410,300)
+    
+
+    if enemy_health == 0:
+        enemy_health = 5
+        enemy_tank.float_pos = Point(410, 300)
+
 
     # if player.X == 0:
     #     player.X = 1
@@ -384,9 +401,10 @@ while True:
     #     print("1234 1234 1234 1234123 41234 123 123 ")
 
     # rotation_goal = formula
-    print(rotation_goal)
 
+    # print(rotation_goal)
 
+    # enemy_tank.float_pos = Point(410, 300)
     #drawing section
     backbuffer.fill((100, 100, 20))
 
@@ -401,6 +419,10 @@ while True:
 
     screen.blit(backbuffer, (0, 0))
 
+    if rotation_goal == 360:
+        rotation_goal = 0
+        enemy_tank.rotation = 0
+
     pygame.draw.rect(screen, (50, 150, 50, 180), Rect(10, 570, player_health*20, 25))
     pygame.draw.rect(screen, (100, 200, 100, 180), Rect(10, 570, 200, 25), 2)
 
@@ -410,9 +432,13 @@ while True:
     if not game_over:
         print_text(font, 200, 0, "PLAYER " + str(player_score))
         print_text(font, 500, 0, "ENEMY " + str(enemy_score))
+        print_text(font, 350, 20, "Goal: " + str(rotation_goal))
+        print_text(font, 350, 40, "Angle: " + str(enemy_tank.rotation))
     else:
         print_text(font, 0, 0, "GAME OVER")
 
+    stayX = player.X
+    stayY = player.Y
     pygame.display.update()
 
     #remove expired bullets
